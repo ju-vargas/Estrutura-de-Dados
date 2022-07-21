@@ -4,6 +4,7 @@
 /* Problema para o laboratório. Implementar uma função para inserir um número indeterminado de
 elementos (números inteiros) em uma lista simplesmente encadeada.*/
 
+//o código está com erros
 
 
 /*  criar uma lista vazia
@@ -39,42 +40,35 @@ int main(void) {
 
     ptLSE* PtLista;
     
-    int aux = 0; 
+    int aux = 1; 
 
 
     //criar lista
     PtLista = cria_lista(); 
 
     //inserir 
-    printf("Insira um número"); 
-    scanf("%i", &aux); 
-    
-    if (aux != 0) {
-
-        //criar lista usando esse numero 
-
-
-    } 
-    else //esse numero não pode inicializar a lista
-         //lista inicializada é falso
-         //imprime que a lista está vazia  
-
-
+    //criar lista usando esse numero 
     while (aux!=0) {
-        printf("Insira um numero"); 
-        scanf("%i", aux); 
+        printf("Insira um numero: "); 
+        scanf("%i", &aux); 
+        //PtLista = insere(PtLista, aux);
+        PtLista = insere(PtLista, aux);
+        //*** PERCORRER LISTA (busca)
 
-        if (aux != 0) {
-            
-            insere (PtLista, aux);
-            //*** PERCORRER LISTA (busca)
-
-            //se a lista está vazia, vira o primeiro elemento
-            //se o numero nao está lista, REMOVE primeiro e ultimo
-                //caso esteja removendo o único elemento, lembrar de atualizar ptLista para NULL
-            //se está, INSERE
-        }
+        //se a lista está vazia, vira o primeiro elemento
+        //se o numero nao está lista, REMOVE primeiro e ultimo
+        //caso esteja removendo o único elemento, lembrar de atualizar ptLista para NULL
+        //se está, INSERE
     }
+        
+    if (aux == 0) {
+        printf ("Programa encerrado!");
+    }  
+
+    imprime(PtLista);
+    destroi(PtLista);
+    imprime(PtLista);
+
     
 
     return 0;

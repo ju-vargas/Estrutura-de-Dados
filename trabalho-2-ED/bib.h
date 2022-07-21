@@ -19,9 +19,8 @@ struct tipoNo{                      //tipoNo eh a struct, o NODO que carrega os 
 ptLSE* cria_lista(void);
 ptLSE* insere (ptLSE *PtLista, int aux);
 ptLSE* busca(void);
-ptLSE* removeLista(void);
-ptLSE* detroi(ptLSE *ptLista);
-ptLSE* imprime(void); 
+ptLSE* destroi(ptLSE *ptLista);
+void imprime(ptLSE *ptLista);
 
 
 #endif
