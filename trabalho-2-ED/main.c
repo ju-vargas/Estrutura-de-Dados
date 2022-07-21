@@ -20,6 +20,7 @@ elementos (números inteiros) em uma lista simplesmente encadeada.*/
                     --- se o numero não existe, primeiro e ultimo item excluídos (se existirem)
                         -> fazer busca
                         -> remover
+                        -> atualizar ptLista para NULL caso o único elemento seja destruído
                     --- se a LISTA está VAZIA, num deve ser colocado na primeira posição
                         -> fazer busca 
                         -> inserir
@@ -36,13 +37,45 @@ elementos (números inteiros) em uma lista simplesmente encadeada.*/
 
 int main(void) {
 
+    ptLSE* PtLista;
+    
+    int aux = 0; 
 
 
-    ptLSE* p;
-    p = cria_lista(); 
+    //criar lista
+    PtLista = cria_lista(); 
+
+    //inserir 
+    printf("Insira um número"); 
+    scanf("%i", &aux); 
+    
+    if (aux != 0) {
+
+        //criar lista usando esse numero 
 
 
+    } 
+    else //esse numero não pode inicializar a lista
+         //lista inicializada é falso
+         //imprime que a lista está vazia  
 
+
+    while (aux!=0) {
+        printf("Insira um numero"); 
+        scanf("%i", aux); 
+
+        if (aux != 0) {
+            
+            insere (PtLista, aux);
+            //*** PERCORRER LISTA (busca)
+
+            //se a lista está vazia, vira o primeiro elemento
+            //se o numero nao está lista, REMOVE primeiro e ultimo
+                //caso esteja removendo o único elemento, lembrar de atualizar ptLista para NULL
+            //se está, INSERE
+        }
+    }
+    
 
     return 0;
 }

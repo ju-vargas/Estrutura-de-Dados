@@ -3,17 +3,25 @@
 
 #include <stdio.h>
 #include <stdlib.h> 
+
+#define TRUE 1
+#define FALSE 0
+
 #include <string.h>
 
+typedef struct tipoNo ptLSE;        // a estrutura ptLSE é o tipo ponteiro para lista simplesmente encadeada. é o PONTEIRO para o NODO 
 
-
-typedef struct tipoNo ptLSE;
-
-struct tipoNo{
- int numero;
- ptLSE *prox;
+struct tipoNo{                      //tipoNo eh a struct, o NODO que carrega os números
+ int numero;                        
+ ptLSE *prox;                       //ptLSE é o ELO, que aponta para o próximo número
 };
 
+ptLSE* cria_lista(void);
+ptLSE* insere (ptLSE *PtLista, int aux);
+ptLSE* busca(void);
+ptLSE* removeLista(void);
+ptLSE* detroi(ptLSE *ptLista);
+ptLSE* imprime(void); 
 
 
 #endif

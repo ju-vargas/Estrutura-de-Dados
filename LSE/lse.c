@@ -14,25 +14,25 @@ PtNo* cria_lista(void)
 PtNo* insere_ord (PtNo* l, InfoNo dados)
 {
        PtNo *novo; //novo elemento
-       PtNo *ant = NULL; //ponteiro auxiliar para a posição anterior
+       PtNo *ant = NULL; //ponteiro auxiliar para a posiï¿½ï¿½o anterior
        PtNo *ptaux = l; //ponteiro auxiliar para percorrer a lista
 
        /*aloca um novo nodo */
        novo = (PtNo*) malloc(sizeof(PtNo));
 
-       /*insere a informação no novo nodo*/
+       /*insere a informaï¿½ï¿½o no novo  nodo*/
        novo->info = dados;
 
 
-       /*procurando a posição de inserção*/
-       while ((ptaux!=NULL) && (strcmp(ptaux->info.titulo,dados.titulo)<0)) //se info.titulo < dados.titulo então strcmp retorna um valor menor que zero
+       /*procurando a posiï¿½ï¿½o de inserï¿½ï¿½o*/
+       while ((ptaux!=NULL) && (strcmp(ptaux->info.titulo,dados.titulo)<0)) //se info.titulo < dados.titulo entï¿½o strcmp retorna um valor menor que zero
        {
              ant = ptaux;
              ptaux = ptaux->prox;
        }
 
        /*encaeia o elemento*/
-       if (ant == NULL) /*o anterior não existe, logo o elemento será inserido na primeira posição*/
+       if (ant == NULL) /*o anterior nï¿½o existe, logo o elemento serï¿½ inserido na primeira posiï¿½ï¿½o*/
        {
              //  puts("inserindo primeiro");
                novo->prox = l;
@@ -58,7 +58,7 @@ void imprime(PtNo* l)
 
 PtNo* remover(PtNo* l, char titulo[20])
 {
-     PtNo *ant = NULL; //ponteiro auxiliar para a posição anterior
+     PtNo *ant = NULL; //ponteiro auxiliar para a posiï¿½ï¿½o anterior
      PtNo *ptaux = l; //ponteiro auxiliar para percorrer a lista
 
      /*procura o elemento na lista*/
@@ -77,7 +77,7 @@ PtNo* remover(PtNo* l, char titulo[20])
     else /*vai remover do meio ou do final*/
       ant->prox = ptaux->prox;
 
-    free(ptaux); /*libera a memória alocada*/
+    free(ptaux); /*libera a memï¿½ria alocada*/
 
     return l;
 }
