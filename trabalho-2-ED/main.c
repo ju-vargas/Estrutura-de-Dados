@@ -62,15 +62,14 @@ int main(void) {
         //se está, INSERE
     }
         
-    if (aux == 0) {
-        printf ("Programa encerrado!");
-    }  
-
+    printf ("Lista: ");
     imprime(PtLista);
-    destroi(PtLista);
-    //imprime(PtLista);
 
-    
+    printf("Destroi lista... \n");
+    PtLista = destroi(PtLista);
+
+    printf ("Lista: ");
+    imprime(PtLista);
 
     return 0;
 }

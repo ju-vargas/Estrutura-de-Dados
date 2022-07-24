@@ -31,25 +31,20 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
     ptAux = PtLista; 
 
     if (ptAux == NULL) {
-        printf("LISTA VAZIA\n");
         listaVazia = TRUE;
     }
           
     if (!listaVazia) {
         
         while (ptAux != NULL) {
-            printf("PROCURANDO IGUAL\n");
-            //printf ("numero eh %i\n", ptAux->numero);
             if ((ptAux->numero) == aux) {
                 temNaLista = TRUE; 
                 posicaoEncontro = nroNodos; //posicao encontro começa do ZERO
                 ptAuxNum = ptAux; 
 
-                
                 ant = PtLista; 
                     while (ant->prox != ptAuxNum && ant->prox != NULL) {
                     ant = ant->prox;                // isso faz com que ant carregue o anterior ao encontrado
-                    printf ("o anterior eh %i", ant->numero);
                 }
 
                 
@@ -60,18 +55,12 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
         }
     }
 
-    if (temNaLista) {
-        printf("o numero %i esta na lista\n", ptAuxNum->numero);
-        printf("ponteiro ultimo: %i, ponteiro penultimo: %i", ptAuxNum->numero, ant->numero);
-    }
-
     //2 - CRIAR o nodo  ========================================================================================================
     //--- lembrar dos possíveis casos 
     
     
     //se a lista estiver vazia
     if (listaVazia == TRUE) {
-        printf("CRIANDO PRIMEIRO MEMBRO\n");
         //criar a lista mudando o ponteiro
         novo = (ptLSE*) malloc(sizeof(ptLSE));
         novo->numero = aux; 
@@ -83,23 +72,16 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
 
     //se a lista tem elementos
     else if (temNaLista) {
-        printf("TEM NA LISTA ");
 
-
-
-        
         if (posicaoEncontro == 0) {                 //verifica se está no INICIO da lista
-            printf("no INICIO\n");
-
-
+        
             //criar nodo posterior
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux+1;
 
-            printf("novo numero: %i %i\n", novo->numero, aux);
             novo->prox = ptAuxNum->prox;   
             ptAuxNum->prox = novo;
-            printf("novo prox: %i\n", novo->prox);    
+   
             if (nroNodos == 1) 
             novo->prox = NULL;     
 
@@ -107,36 +89,27 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
             //criar nodo anterior
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux-1; 
-            printf("novo numero: %i %i\n", novo->numero, aux);
             novo->prox = ptAuxNum;
-            printf("novo prox: %i\n", novo->prox);  
             PtLista = novo;
-
-            
-
-            
-
-            
         }
 
         else if ((posicaoEncontro+1) == nroNodos) {  //verifica se está no FIM da lista
-            printf("no FIM\n");
             //criar nodo anterior
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux-1; 
             novo->prox = ptAuxNum;
-            if (nroNodos == 1) 
-                novo->prox = NULL; 
-            
+
+            if (nroNodos > 1)
+                ant->prox = novo;
+        
             //criar nodo posterior  
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux+1; 
-            novo->prox = NULL;ptAuxNum->prox = novo;
+            novo->prox = NULL;
             ptAuxNum->prox = novo;
         }
 
         else {                                      //verifica se está no MEIO da lista
-            printf("no MEIO\n");
             //criar nodo anterior
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux-1; 
@@ -152,7 +125,6 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
     }
 
     else if (!temNaLista) { 
-        printf("NAO TEM NA LISTA\n");
         ptAux = PtLista; 
 
         //remove o primeiro e o ultimo elemento
@@ -174,16 +146,15 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
             //primeiro
 
             // se só tem dois elementos  
-            //excluo diferente
-            //altero ponteiro
-
+                //excluo diferente
+                //altero ponteiro
             if (nroNodos == 2) {
                 free(PtLista);
                 PtLista = NULL;
             }
+
             else {
-                ptAux = PtLista;     
-                printf("numero de nodos nao eh 2");                 
+                ptAux = PtLista;                     
                 PtLista = PtLista ->prox; 
                 free (ptAux);
             }
@@ -193,43 +164,41 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
             //excluo diferente
             //altero ponteiro
         if (nroNodos == 1) {
-            printf("entrei na exclusao, caso numero de nodos > 1");
             free(PtLista);
             PtLista = NULL;
-        }
-
-        printf("ponteiro da lista qnd nao tem = %i", PtLista); 
+        } 
     }
 
     return PtLista;
 }
 
-ptLSE* busca(void) {
-    return NULL;
-}
-
 ptLSE* destroi(ptLSE *ptLista) {             // a funçao recebe um ponteiro para o inicio da lista e vai percorrendo dando free
     ptLSE *ptAux;              //ponteiro auxiliar para percorrer a lista
+
     while (ptLista != NULL) {
-         ptAux = ptLista;
-         ptLista = ptLista->prox;
-         free(ptAux);
-   }
-   free(ptLista);
-   return NULL;
+        ptAux = ptLista;
+        ptLista = ptLista->prox;
+        free(ptAux);
+    }
+    free(ptLista);
+    return NULL;
 }
 
 void imprime(ptLSE *ptLista) {
     ptLSE *ptAux;
 
     ptAux = ptLista;
-    printf("%i\n", ptAux);
-    printf("entrei na imprime\n");
 
-    while ( ptAux != NULL) {
+    if (ptAux == NULL)
+        printf("Lista vazia! ");
+
+    while (ptAux != NULL) {
         printf("%i", ptAux->numero);
-        if (ptAux->prox != NULL)
-            printf ("->");
         ptAux = ptAux->prox;
+
+        if (ptAux != NULL)
+            printf ("->");
     }
+
+    printf("\n"); 
 }

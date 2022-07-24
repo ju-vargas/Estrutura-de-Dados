@@ -7,8 +7,6 @@
 #define TRUE 1
 #define FALSE 0
 
-#include <string.h>
-
 typedef struct tipoNo ptLSE;        // a estrutura ptLSE é o tipo ponteiro para lista simplesmente encadeada. é o PONTEIRO para o NODO 
 
 struct tipoNo{                      //tipoNo eh a struct, o NODO que carrega os números
@@ -18,7 +16,6 @@ struct tipoNo{                      //tipoNo eh a struct, o NODO que carrega os 
 
 ptLSE* cria_lista(void);
 ptLSE* insere (ptLSE *PtLista, int aux);
-ptLSE* busca(void);
 ptLSE* destroi(ptLSE *ptLista);
 void imprime(ptLSE *ptLista);
 
