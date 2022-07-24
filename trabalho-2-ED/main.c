@@ -52,7 +52,8 @@ int main(void) {
         printf("Insira um numero: "); 
         scanf("%i", &aux); 
         //PtLista = insere(PtLista, aux);
-        PtLista = insere(PtLista, aux);
+        if (aux != 0) 
+            PtLista = insere(PtLista, aux);
         //*** PERCORRER LISTA (busca)
 
         //se a lista está vazia, vira o primeiro elemento
@@ -67,7 +68,7 @@ int main(void) {
 
     imprime(PtLista);
     destroi(PtLista);
-    imprime(PtLista);
+    //imprime(PtLista);
 
     
 
