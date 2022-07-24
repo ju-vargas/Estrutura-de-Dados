@@ -36,6 +36,7 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
     }
           
     if (!listaVazia) {
+        
         while (ptAux != NULL) {
             printf("PROCURANDO IGUAL\n");
             //printf ("numero eh %i\n", ptAux->numero);
@@ -43,14 +44,25 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
                 temNaLista = TRUE; 
                 posicaoEncontro = nroNodos; //posicao encontro começa do ZERO
                 ptAuxNum = ptAux; 
-            }         
-            ant = ptAux;            // coloca ptAux como o ponteiro do no anterior
+
+                
+                ant = PtLista; 
+                    while (ant->prox != ptAuxNum && ant->prox != NULL) {
+                    ant = ant->prox;                // isso faz com que ant carregue o anterior ao encontrado
+                    printf ("o anterior eh %i", ant->numero);
+                }
+
+                
+            } 
+            
             ptAux = ptAux->prox;    // coloca o proximo como o atual
             nroNodos++;             // nroNodos começa do UM, pois estou contando uma quantidade
         }
     }
+
     if (temNaLista) {
         printf("o numero %i esta na lista\n", ptAuxNum->numero);
+        printf("ponteiro ultimo: %i, ponteiro penultimo: %i", ptAuxNum->numero, ant->numero);
     }
 
     //2 - CRIAR o nodo  ========================================================================================================
@@ -128,12 +140,14 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
             //criar nodo anterior
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux-1; 
-            novo->prox = ptAuxNum;
+            novo->prox = ptAuxNum;                  //to inserindo o nome antes 
+            ant->prox = novo;                       //preciso ligar o anterior antigo com o anterior novo antAntigo->prox = antNovo; 
 
             //criar nodo posterior
             novo = (ptLSE*) malloc(sizeof(ptLSE));
             novo->numero = aux+1;
             novo->prox = ptAuxNum->prox;  
+            ptAuxNum->prox = novo;                  //preciso ligar o inserido posterior com o num da lista
         }
     }
 
@@ -214,7 +228,8 @@ void imprime(ptLSE *ptLista) {
 
     while ( ptAux != NULL) {
         printf("%i", ptAux->numero);
-        printf ("->");
+        if (ptAux->prox != NULL)
+            printf ("->");
         ptAux = ptAux->prox;
     }
 }
