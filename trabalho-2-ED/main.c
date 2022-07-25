@@ -2,7 +2,7 @@
 
 
 /* Problema para o laboratório. Implementar uma função para inserir um número indeterminado de
-elementos (números inteiros) em uma lista simplesmente encadeada.*/
+elementos (números inteiros) em uma LISTA DUPLAMENTE ENCADEADA CIRCULAR*/
 
 //o código está com erros
 

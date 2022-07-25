@@ -10,8 +10,9 @@
 typedef struct tipoNo ptLSE;        // a estrutura ptLSE é o tipo ponteiro para lista simplesmente encadeada. é o PONTEIRO para o NODO 
 
 struct tipoNo{                      //tipoNo eh a struct, o NODO que carrega os números
- int numero;                        
- ptLSE *prox;                       //ptLSE é o ELO, que aponta para o próximo número
+    int numero;                        
+    ptLSE *prox;                       //ptLSE é o ELO, que aponta para o próximo número
+    ptLSE *ant;
 };
 
 ptLSE* cria_lista(void);

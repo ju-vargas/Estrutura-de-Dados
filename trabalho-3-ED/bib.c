@@ -5,9 +5,10 @@ ptLSE* cria_lista(void) {
     return NULL;
 }
 
-ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro para a lista e um número, e devolve o ponteiro para o novo novo
-    ptLSE *novo = NULL;           // ponteiro para o NOVO elemento
-    ptLSE *ant = NULL;      // ponteiro auxiliar para o elemento ANTERIOR 
+ptLSE* insere (ptLSE *PtLista, int aux) {  
+
+    ptLSE *novo = NULL;            // ponteiro para o NOVO elemento
+    ptLSE *ant = NULL;             // ponteiro auxiliar para o elemento ANTERIOR 
     ptLSE *ptAux = NULL;           // ponteiro auxiliar para PERCORRER a lista 
     ptLSE *ptAuxNum = NULL;        // ponteiro que guarda o endereço do NUM quando ele é encontrado
     ptLSE *ptUltimo = NULL;        // ponteiro auxiliar para ultimo endereço da lista 
@@ -15,113 +16,91 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
     int temNaLista = 0;
     int listaVazia = 0; 
     int nroNodos = 0; 
-    int posicaoEncontro = 0; 
-
-    //1 - PERCORRER a lista simplesmente encadeada ============================================================================
-    // BUSCAR a posição de inserção 
-    /*  COMO vai FUNCIONAR essa busca?
-        --- vou percorrer e procurar se o número aux já está nessa lista 
-            --- a partir disso, que vai ser decidido como inserir
-                --- lembrar de fazer ifs para os casos 
-                    - lista vazia     (atualiza ptLSE)
-                    - lista no inicio (remoção diferente)
-                    - lista no fim    (remoção diferente)
-    */
+    int posicaoEncontro = 0;
 
     ptAux = PtLista; 
 
     if (ptAux == NULL) {
         listaVazia = TRUE;
     }
-          
+
+//BUSCAR se já há na lista =====================================================================================
+
     if (!listaVazia) {
-        
-        while (ptAux != NULL) {
+        do {
             if ((ptAux->numero) == aux) {
                 temNaLista = TRUE; 
-                posicaoEncontro = nroNodos; //posicao encontro começa do ZERO
+                posicaoEncontro = nroNodos;             //posicao encontro começa do ZERO
                 ptAuxNum = ptAux; 
-
-                ant = PtLista; 
-                    while (ant->prox != ptAuxNum && ant->prox != NULL) {
-                    ant = ant->prox;                // isso faz com que ant carregue o anterior ao encontrado
-                }
-
-                
+                //nao preciso buscar nodo anterior pois é duplamente encadeada  
             } 
-            
-            ptAux = ptAux->prox;    // coloca o proximo como o atual
-            nroNodos++;             // nroNodos começa do UM, pois estou contando uma quantidade
-        }
+            ptAux = ptAux->prox;                        // coloca o proximo como o atual
+            nroNodos++;                                 // nroNodos começa do UM, pois estou contando uma quantidade
+        }  while (ptAux->prox != PtLista);
     }
 
-    //2 - CRIAR o nodo  ========================================================================================================
-    //--- lembrar dos possíveis casos 
-    
-    
-    //se a lista estiver vazia
+    /* while (ptAux->prox != PtLista) {
+
+            if ((ptAux->numero) == aux) {
+                temNaLista = TRUE; 
+                posicaoEncontro = nroNodos;             //posicao encontro começa do ZERO
+                ptAuxNum = ptAux; 
+                                                        //nao preciso buscar nodo anterior pois é duplamente encadeada  
+            } 
+            ptAux = ptAux->prox;                        // coloca o proximo como o atual
+            nroNodos++;                                 // nroNodos começa do UM, pois estou contando uma quantidade
+        }
+    }*/
+
+//CRIAR o nodo em lista vazia ====================================================================================
+
     if (listaVazia == TRUE) {
         //criar a lista mudando o ponteiro
         novo = (ptLSE*) malloc(sizeof(ptLSE));
-        novo->numero = aux; 
-        novo->prox = NULL;
+
+        novo->numero = aux;                             // quando só há um nó num lista circular, ela aponta para si mesma
+        novo->prox = novo;
+        novo->ant = novo;
+
         PtLista = novo;
         ptAux = PtLista;
         listaVazia = FALSE;
     }
 
-    //se a lista tem elementos
+
+// INSERIR nodo em lista COM elementos ===========================================================================
     else if (temNaLista) {
-
-        if (posicaoEncontro == 0) {                 //verifica se está no INICIO da lista
         
-            //criar nodo posterior
-            novo = (ptLSE*) malloc(sizeof(ptLSE));
-            novo->numero = aux+1;
+        //criar nodo posterior
+        novo = (ptLSE*) malloc(sizeof(ptLSE));
 
-            novo->prox = ptAuxNum->prox;   
-            ptAuxNum->prox = novo;
-   
-            if (nroNodos == 1) 
-            novo->prox = NULL;     
+        novo->numero = aux+1;                       //preechendo campo do novo nodo
+        novo->prox = ptAuxNum->prox;   
+        novo->ant = ptAuxNum; 
+
+        ptAuxNum->prox->ant = novo;                 //preenchendo campo do nodo posterior ao novo
+        ptAuxNum->prox = novo;                      //preenchendo campo do nodo anterior ao novo (é o ptAuxNum)
 
 
-            //criar nodo anterior
-            novo = (ptLSE*) malloc(sizeof(ptLSE));
-            novo->numero = aux-1; 
-            novo->prox = ptAuxNum;
+        //criar nodo anterior
+        novo = (ptLSE*) malloc(sizeof(ptLSE));
+
+        novo->numero = aux-1;                       //preenchendo campo do novo nodo  
+        novo->prox = ptAuxNum;
+        novo->ant = ptAuxNum->ant; 
+
+        ptAuxNum->ant->prox = novo;                 //preenchendo campo do nodo anterior ao novo
+        ptAuxNum->ant = novo;                       //preenchendo campo do nodo posterior ao novo (é o ptAuxNum)
+
+        if (posicaoEncontro == 0)                    //verifica se está no INICIO da lista
             PtLista = novo;
-        }
 
-        else if ((posicaoEncontro+1) == nroNodos) {  //verifica se está no FIM da lista
-            //criar nodo anterior
-            novo = (ptLSE*) malloc(sizeof(ptLSE));
-            novo->numero = aux-1; 
-            novo->prox = ptAuxNum;
-
-            if (nroNodos > 1)
-                ant->prox = novo;
         
-            //criar nodo posterior  
-            novo = (ptLSE*) malloc(sizeof(ptLSE));
-            novo->numero = aux+1; 
-            novo->prox = NULL;
-            ptAuxNum->prox = novo;
-        }
 
-        else {                                      //verifica se está no MEIO da lista
-            //criar nodo anterior
-            novo = (ptLSE*) malloc(sizeof(ptLSE));
-            novo->numero = aux-1; 
-            novo->prox = ptAuxNum;                  //to inserindo o nome antes 
-            ant->prox = novo;                       //preciso ligar o anterior antigo com o anterior novo antAntigo->prox = antNovo; 
+        //o que ta acontecendo é que 
+        //o posterior 
 
-            //criar nodo posterior
-            novo = (ptLSE*) malloc(sizeof(ptLSE));
-            novo->numero = aux+1;
-            novo->prox = ptAuxNum->prox;  
-            ptAuxNum->prox = novo;                  //preciso ligar o inserido posterior com o num da lista
-        }
+        
     }
 
     else if (!temNaLista) { 
@@ -129,76 +108,88 @@ ptLSE* insere (ptLSE *PtLista, int aux) {   // a função recebe um ponteiro par
 
         //remove o primeiro e o ultimo elemento
         if (nroNodos > 1) {
-            //ultimo
-            while (ptAux != NULL) {                // para achar o ultimo elemento
-                ptUltimo = ptAux; 
-                ptAux = ptAux->prox; 
-            }       
+            ptUltimo = PtLista->ant;                //ultimo elemento
+            ptAux = ptUltimo->ant;                  //penultimo elemento
 
-            ptAux = PtLista;
-            while (ptAux->prox != ptUltimo) {
-                ptAux = ptAux->prox;                // isso faz com que ptAux carregue o antepenultimo
-            }
+            //ultimo                   
+            ptAux->prox = PtLista;                  //penultimo->prox recebe primeiro da lista
+            PtLista->ant = ptAux;                   //primeiro->ant recebe novo ultimo da lista         
 
-            ptAux->prox = NULL;                     // penultimo->proximo recebe NULL
-            free (ptUltimo);                        // dou free no ultimo ponteiro
+            free (ptUltimo);                        //dou free no ultimo ponteiro
                     
             //primeiro
-
-            // se só tem dois elementos  
-                //excluo diferente
-                //altero ponteiro
-            if (nroNodos == 2) {
-                free(PtLista);
-                PtLista = NULL;
-            }
-
-            else {
-                ptAux = PtLista;                     
-                PtLista = PtLista ->prox; 
-                free (ptAux);
-            }
+            ptAux = PtLista; 
+            ptUltimo = PtLista->ant;
+            PtLista = PtLista->prox;
+            PtLista->ant = ptUltimo; 
+            free (ptAux);    
         }
-         
-        // se só tem um elemento
-            //excluo diferente
-            //altero ponteiro
-        if (nroNodos == 1) {
+                                                 
+        if (nroNodos == 1) {                        // se só tem um elemento
             free(PtLista);
             PtLista = NULL;
         } 
     }
 
-    return PtLista;
+    return PtLista; 
 }
 
-ptLSE* destroi(ptLSE *ptLista) {             // a funçao recebe um ponteiro para o inicio da lista e vai percorrendo dando free
-    ptLSE *ptAux;              //ponteiro auxiliar para percorrer a lista
+ptLSE* destroi(ptLSE *ptLista) {                    //a funçao recebe um ponteiro para o inicio da lista e vai percorrendo dando free
+    ptLSE *ptAux;                                   //ponteiro auxiliar para percorrer a lista
+    ptLSE *ptPrimeiro; 
 
-    while (ptLista != NULL) {
+    
+
+    ptPrimeiro = ptLista; 
+
+    do {                                            //quando o ptLista->prox for igual ao primeiro 
         ptAux = ptLista;
         ptLista = ptLista->prox;
         free(ptAux);
-    }
-    free(ptLista);
+    } while (ptLista != ptPrimeiro);
+    
     return NULL;
+
 }
 
+
 void imprime(ptLSE *ptLista) {
-    ptLSE *ptAux;
+    ptLSE *ptAux;                                   //ponteiro auxiliar para percorrer a lista
+    ptLSE *ptPrimeiro; 
+    ptLSE *ptUltimo;
+
+
+    ptPrimeiro = ptLista; 
 
     ptAux = ptLista;
 
     if (ptAux == NULL)
         printf("Lista vazia! ");
 
-    while (ptAux != NULL) {
+    do {                                            //quando o ptLista->prox for igual ao primeiro 
         printf("%i", ptAux->numero);
         ptAux = ptAux->prox;
-
-        if (ptAux != NULL)
+        
+        if (ptAux != ptPrimeiro)
             printf ("->");
-    }
+
+    } while (ptAux != ptPrimeiro);
 
     printf("\n"); 
+
+
+    printf ("Lista de tras pra frente: ");
+    ptUltimo = ptAux = ptLista->ant; 
+    
+    do {                                            //quando o ptLista->prox for igual ao primeiro 
+        printf("%i", ptAux->numero);
+        ptAux = ptAux->ant;
+        
+        if (ptAux != ptUltimo)
+            printf ("->");
+
+    } while (ptAux != ptUltimo);
+
+    printf("\n"); 
+
 }
