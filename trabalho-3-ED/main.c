@@ -54,12 +54,9 @@ int main(void) {
         //PtLista = insere(PtLista, aux);
         if (aux != 0) 
             PtLista = insere(PtLista, aux);
-        //*** PERCORRER LISTA (busca)
-
-        //se a lista está vazia, vira o primeiro elemento
-        //se o numero nao está lista, REMOVE primeiro e ultimo
-        //caso esteja removendo o único elemento, lembrar de atualizar ptLista para NULL
-        //se está, INSERE
+       printf ("Lista: ");
+       imprime(PtLista);
+        
     }
         
     printf ("Lista: ");

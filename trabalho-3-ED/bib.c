@@ -26,31 +26,26 @@ ptLSE* insere (ptLSE *PtLista, int aux) {
 
 //BUSCAR se já há na lista =====================================================================================
 
+    
     if (!listaVazia) {
+        ptAux = PtLista;
+        //printf("O pt lista ta apontando para %i\n", PtLista->numero);
         do {
             if ((ptAux->numero) == aux) {
                 temNaLista = TRUE; 
-                posicaoEncontro = nroNodos;             //posicao encontro começa do ZERO
+                posicaoEncontro = nroNodos+1;             //posicao encontro começa do ZERO
                 ptAuxNum = ptAux; 
+
+                //printf ("ENCONTREI O NUMERO E ELE EH %i\n\n", ptAuxNum->numero);
                 //nao preciso buscar nodo anterior pois é duplamente encadeada  
             } 
+           
+
             ptAux = ptAux->prox;                        // coloca o proximo como o atual
             nroNodos++;                                 // nroNodos começa do UM, pois estou contando uma quantidade
-        }  while (ptAux->prox != PtLista);
+        }  while (ptAux != PtLista);
     }
 
-    /* while (ptAux->prox != PtLista) {
-
-            if ((ptAux->numero) == aux) {
-                temNaLista = TRUE; 
-                posicaoEncontro = nroNodos;             //posicao encontro começa do ZERO
-                ptAuxNum = ptAux; 
-                                                        //nao preciso buscar nodo anterior pois é duplamente encadeada  
-            } 
-            ptAux = ptAux->prox;                        // coloca o proximo como o atual
-            nroNodos++;                                 // nroNodos começa do UM, pois estou contando uma quantidade
-        }
-    }*/
 
 //CRIAR o nodo em lista vazia ====================================================================================
 
@@ -92,9 +87,12 @@ ptLSE* insere (ptLSE *PtLista, int aux) {
         ptAuxNum->ant->prox = novo;                 //preenchendo campo do nodo anterior ao novo
         ptAuxNum->ant = novo;                       //preenchendo campo do nodo posterior ao novo (é o ptAuxNum)
 
-        if (posicaoEncontro == 0)                    //verifica se está no INICIO da lista
-            PtLista = novo;
 
+
+        if (posicaoEncontro == 1)       {             //verifica se está no INICIO da lista
+            PtLista = novo;
+           // printf("ENTREI AQUiiUIIiiiii\n");
+        }
         
 
         //o que ta acontecendo é que 
@@ -113,17 +111,23 @@ ptLSE* insere (ptLSE *PtLista, int aux) {
 
             //ultimo                   
             ptAux->prox = PtLista;                  //penultimo->prox recebe primeiro da lista
+                                                    //PORÉM ptLista é o antigo ainda  
             PtLista->ant = ptAux;                   //primeiro->ant recebe novo ultimo da lista         
 
             free (ptUltimo);                        //dou free no ultimo ponteiro
-                    
+            ptUltimo = ptAux; 
+            
             //primeiro
+
             ptAux = PtLista; 
-            ptUltimo = PtLista->ant;
+          //ptUltimo = PtLista->ant;
             PtLista = PtLista->prox;
             PtLista->ant = ptUltimo; 
             free (ptAux);    
-        }
+
+            ptUltimo->prox = PtLista; 
+       
+       }
                                                  
         if (nroNodos == 1) {                        // se só tem um elemento
             free(PtLista);
@@ -166,30 +170,33 @@ void imprime(ptLSE *ptLista) {
     if (ptAux == NULL)
         printf("Lista vazia! ");
 
-    do {                                            //quando o ptLista->prox for igual ao primeiro 
-        printf("%i", ptAux->numero);
-        ptAux = ptAux->prox;
+    else {
+
+        do {                                            //quando o ptLista->prox for igual ao primeiro 
+            printf("%i", ptAux->numero);
+            ptAux = ptAux->prox;
+            
+            if (ptAux != ptPrimeiro)
+                printf ("->");
+
+        } while (ptAux != ptPrimeiro);
+
+        printf("\n"); 
+
+
+        printf ("Lista de tras pra frente: ");
+        ptUltimo = ptAux = ptLista->ant; 
         
-        if (ptAux != ptPrimeiro)
-            printf ("->");
+        do {                                            //quando o ptLista->prox for igual ao primeiro 
+            printf("%i", ptAux->numero);
+            ptAux = ptAux->ant;
+            
+            if (ptAux != ptUltimo)
+                printf ("->");
 
-    } while (ptAux != ptPrimeiro);
+        } while (ptAux != ptUltimo);
 
-    printf("\n"); 
-
-
-    printf ("Lista de tras pra frente: ");
-    ptUltimo = ptAux = ptLista->ant; 
-    
-    do {                                            //quando o ptLista->prox for igual ao primeiro 
-        printf("%i", ptAux->numero);
-        ptAux = ptAux->ant;
-        
-        if (ptAux != ptUltimo)
-            printf ("->");
-
-    } while (ptAux != ptUltimo);
-
-    printf("\n"); 
+        printf("\n\n"); 
+    }
 
 }
