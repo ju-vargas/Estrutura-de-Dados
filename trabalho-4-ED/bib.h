@@ -21,6 +21,10 @@ struct tipoNoArvore{                            //tipoNoArvore eh a struct, o NO
 ptArvore* InsereArvore(ptArvore *a, tipoinfo ch);
 void Desenha(ptArvore *a);
 int Compara (ptArvore *a, ptArvore *b, int *iguais);
+ptArvore* Espelha (ptArvore *a, ptArvore *b); 
+void CentralE(ptArvore *a); 
+int VerificaABP (ptArvore *a, int ant, int atual, int *deBusca);
+
 
 
 #endif

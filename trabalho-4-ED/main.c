@@ -1,32 +1,17 @@
-#include "bib.c"
+#include "bib.h"
 
 
 
 int main(void) {
-
     
     int continuar = TRUE;
-    int iguais = 1;
-    
+    int iguais = TRUE;
+    int raiz = TRUE; 
+    int deBusca = TRUE; 
+      
+    ptArvore *ptA, *arv1, *arv2, *arvEspelho;
 
-    ptArvore *ptA, *arv1, *arv2;
-    ptA = arv1 = arv2 = NULL; 
-/*
-    int chave = 0; 
-    int aux = 0; 
-
-
-    while (continuar == TRUE) {
-        printf ("Insira o valor: "); 
-        scanf ("%i", &chave);
-        InsereArvore (ptA, chave); 
-
-        printf ("Deseja continuar inserindo? 1-SIM; 2-NAO");
-        scanf ("%i", &continuar);
-
-    }
-*/
-
+    ptA = arv1 = arv2 = arvEspelho = NULL; 
 
     arv1 = InsereArvore(arv1,10);
     arv1 = InsereArvore(arv1,45);
@@ -44,6 +29,9 @@ int main(void) {
     arv2 = InsereArvore(arv2,80);
     arv2 = InsereArvore(arv2,95);
     
+
+
+
     Desenha (arv1); 
     printf ("\n");
     Desenha (arv2); 
@@ -51,9 +39,27 @@ int main(void) {
 
 
     if (iguais)
-        printf ("\nAs duas arvores sao iguais"); 
+        printf ("\nAs duas arvores sao iguais\n"); 
     else 
-        printf ("\nAs duas arvores NAO sao iguais"); 
+        printf ("\nAs duas arvores NAO sao iguais\n"); 
+
+
+    arvEspelho = Espelha (arv1, arvEspelho); 
+
+    printf ("Arvore original: "); 
+    CentralE (arv1); 
+    printf ("\n"); 
+
+    printf ("Arvore espelho: ");
+    CentralE(arvEspelho); 
+    printf ("\n"); 
+
+    VerificaABP (arv1, arv1->info, arv1->info, &deBusca);
+
+    if(deBusca == 1)
+        printf ("Eh arvore binaria de busca!\n");
+    else
+        printf ("NAO eh arvore binaria de busca\n!");
 
 
 
