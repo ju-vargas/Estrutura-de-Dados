@@ -1,0 +1,1 @@
+Trabalho Final apresentado para a disciplina de Estrutura de Dados, no semestre 2022/2.
