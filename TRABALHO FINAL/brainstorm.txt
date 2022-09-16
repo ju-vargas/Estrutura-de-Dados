@@ -1,0 +1,44 @@
+Qual o programa? 
+
+ENTRADA: 
+    Arquivo de texto com alimentos e quantidade ingeridas
+    Tabela com lista de alimentos e suas calorias (por 100g)
+
+SAÍDA: 
+    Arquivo com número de calorias ingeridas 
+    Arquivo com estatísticas de geração da árvore e consultas
+
+É necessário implementar dois tipos de árvores! Quais? 
+
+
+
+O que deve ser feito? 
+
+1. Ler CSV
+    - Carregar dados da tabela na árvore 
+        - Fazer validações dos dados (?)
+        - Carregar as palavras em ordem
+            - Fator/chave = palavra
+            - InfoNodo = calorias
+        - Posso organizar por menor/menor usando caracteres ASCII, para achar nomes? Assim uso busca binária
+
+        - Organizar na árvore de acordo com implementação escolhida
+        
+
+2. Ler e Calcular alimentos ingeridos
+    Sugestão 1 de fluxo
+    - Ler documento do paciente ENQUANTO não chego ao fim
+        - Encontrar nome do alimento
+        - Chamar função que busca na árvore
+            - Função retorna numero negativo caso nao esteja na arvore
+            - Função retorna numero de calorias caso esteja
+        - Chamo funçao que escreve no arquivo calorias calculadas
+            - Escrevo o nome que procurei
+            - Escrevo qntd de calorias de acordo com cal 100/g e qntd ingeridas
+    - Volto pro início
+
+
+
+
+    ;consigo pesquisar só uma coisa de cada vez? ou consigo ter um array pra preencher enquanto percorro a árvore? 
+
