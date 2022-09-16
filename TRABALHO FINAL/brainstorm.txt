@@ -9,8 +9,11 @@ SAÍDA:
     Arquivo com estatísticas de geração da árvore e consultas
 
 É necessário implementar dois tipos de árvores! Quais? 
+ABP e AVL +++
 
-
+RN  até ok
+ 
+Splay -
 
 O que deve ser feito? 
 
