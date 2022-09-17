@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1663450801 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\arvores.c
+	"arvores.h"
+
+1663450826 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\arvores.h
+	<stdio.h>
+	<stdlib.h>
+
+1663455718 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\main.c
+	"bib.h"
+
+1663455203 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\bib.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+	"abp.h"
+	"avl.h"
+
+1663454890 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\abp.h
+	"bib.h"
+
+1663452629 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\avl.h
+	"bib.h"
+
+1663455706 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\abp.c
+	"abp.h"
+
