@@ -6,6 +6,13 @@
 #include <conio.h>
 #include <string.h>
 
+#include "abp.h"
+#include "avl.h"
+
+#define TRUE 1
+#define FALSE 0
+
+//ESTRUTURAS **************************************************************************************************************
 //struct info (campo info do NODO)
 typedef struct tipoInfo{
     int calorias;
@@ -33,14 +40,10 @@ struct TNodoAVL{
 
 typedef struct TNodoAVL pNodoAVL;
 
+//FUNÇOES BIB.C *************************************************************************************************************
+void preFixadoE(pNodoA *a);
+int comparaAlimento (tipoInfo info, char nome[50]);
 
 
-#include "abp.h"
-#include "avl.h"
-
-
-
-#define TRUE 1
-#define FALSE 0
 
 #endif

@@ -18,6 +18,6 @@ pNodoAVL * Caso2 (pNodoAVL * a , int *ok);
 
 pNodoAVL * insereAVL (pNodoAVL * a, tipoInfo x, int *ok);
 
-int comparaAlimento (tipoInfo info, char nome[50]); 
+
 
 #endif

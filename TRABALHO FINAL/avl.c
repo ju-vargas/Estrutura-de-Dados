@@ -271,9 +271,3 @@ pNodoAVL* Caso2 (pNodoAVL *a , int *ok) {
 
 
 
-//preciso mesmo recopiar essa função aqui, já tenso usado para abp.c?
-int comparaAlimento (tipoInfo info, char nome[50]) {
-    int compara = 0;
-    compara = strcmp (info.alimento, nome);
-    return compara; 
-}
