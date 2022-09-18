@@ -6,24 +6,25 @@
 	<stdio.h>
 	<stdlib.h>
 
-1663524959 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\main.c
+1663531299 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\main.c
 	"bib.h"
 
-1663524142 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\bib.h
+1663530392 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\bib.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
+	<ctype.h>
 	<string.h>
 	"abp.h"
 	"avl.h"
 
-1663524726 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\abp.h
+1663529218 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\abp.h
 	"bib.h"
 
-1663519090 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\avl.h
+1663529218 c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\avl.h
 	"bib.h"
 
-1663524975 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\abp.c
+1663531654 source:c:\users\arthu\onedrive\햞ea de trabalho\ufrgs\etapa 2\estrutura de dados\trabalho final\estrutura-de-dados\trabalho final\abp.c
 	"abp.h"
 	"bib.h"
 
