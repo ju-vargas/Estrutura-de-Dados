@@ -3,23 +3,24 @@
 
 pNodoA *insere (pNodoA *arv, tipoInfo info){
     if (arv == NULL){
-        arv = (pNodoA*) malloc(sizeof(arv));
-        strcpy(arv->nodoInfo.alimento,info.alimento);
-        arv->nodoInfo.calorias = info.calorias;
-
+        arv = (pNodoA*) malloc(sizeof(pNodoA));
+        memcpy(&arv->nodoInfo,&info,sizeof(arv->nodoInfo));
         arv->esq = NULL;
         arv->dir = NULL;
-
         return arv;
     } else {
-        if (arv->nodoInfo.alimento > info.alimento)
+        int comparacao = comparaAlimento(arv->nodoInfo,info.alimento);
+        if (comparacao == -1){
             arv->dir = insere (arv->dir, info);
-        else
+        }
+        else if(comparacao == 1){
             arv->esq = insere (arv->esq, info);
+        }
     }
 
     return arv;
 }
+
 
 
 

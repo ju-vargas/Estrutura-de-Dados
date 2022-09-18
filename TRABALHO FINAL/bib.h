@@ -8,12 +8,16 @@
 
 #define TRUE 1
 #define FALSE 0
+#define STRING_SIZE 50
+
+#define TRUE 1
+#define FALSE 0
 
 //ESTRUTURAS **************************************************************************************************************
 //struct info (campo info do NODO)
 typedef struct tipoInfo{
     int calorias;
-    char alimento[50];
+    char alimento[STRING_SIZE];
 }tipoInfo;
 
 
