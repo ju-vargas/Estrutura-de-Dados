@@ -1,4 +1,5 @@
 #include "avl.h"
+#include "bib.h"
 
 /*
 como implementar AVL?
@@ -29,11 +30,11 @@ pNodoAVL* insereArvoreAVL(pNodoAVL * a, tipoInfo info) {
    else {
       // caso a info adicionada seja MENOR QUE seu pai
       if (comparaAlimento(info, a->nodoInfo.alimento) < 0)    
-         a->esq = InsereArvore(a->esq, info);
+         a->esq = insereArvoreAVL(a->esq, info);
       else
          // caso a info adicionada seja MAIOR QUE seu pai
          if (comparaAlimento(info, a->nodoInfo.alimento) > 0) 
-         a->dir = InsereArvore(a->dir, info);
+         a->dir = insereArvoreAVL(a->dir, info);
    }
 
    return a;
@@ -46,7 +47,7 @@ pNodoAVL* insereAVL (pNodoAVL *a, tipoInfo x, int *ok) {
 
 
    if (a == NULL) {
-      a = (pNodoA*) malloc(sizeof(pNodoA));
+      a = (pNodoAVL*) malloc(sizeof(pNodoAVL));
       
       strcpy (a->nodoInfo.alimento, x.alimento);
       a->nodoInfo.calorias = x.calorias;
@@ -60,7 +61,7 @@ pNodoAVL* insereAVL (pNodoAVL *a, tipoInfo x, int *ok) {
    else {
       // caso a info adicionada seja MENOR QUE seu pai  
       if (comparaAlimento(x, a->nodoInfo.alimento) < 0) {
-		   a->esq = InsereAVL(a->esq,x,ok);
+		   a->esq = insereAVL(a->esq,x,ok);
          if (*ok) {
    		   switch (a->FB) {
         	      case -1: a->FB = 0; 
@@ -76,7 +77,7 @@ pNodoAVL* insereAVL (pNodoAVL *a, tipoInfo x, int *ok) {
       }
       // caso a info adicionada seja MAIOR  QUE seu pai 
 	   else if (comparaAlimento(x, a->nodoInfo.alimento) > 0) {
-  	      a->dir = InsereAVL(a->dir,x,ok);
+  	      a->dir = insereAVL(a->dir,x,ok);
          if (*ok) { 
             switch (a->FB) {
                case  1: a->FB = 0; 
@@ -100,14 +101,14 @@ pNodoAVL* insereAVL (pNodoAVL *a, tipoInfo x, int *ok) {
 // base retirada dos exemplos no Moodle da disciplina
 
 // recebo o endereço do nodo e vejo sua altura 
-int Altura (pNodoAVL *a) {                                    
+int altura (pNodoAVL *a) {                                    
    int altEsq, altDir;
    if (a == NULL)
       return 0;
 
    else {
-      altEsq = Altura (a->esq);
-      altDir = Altura (a->dir);
+      altEsq = altura (a->esq);
+      altDir = altura (a->dir);
 
       if (altEsq > altDir)
          return (1 + altEsq);
@@ -118,21 +119,21 @@ int Altura (pNodoAVL *a) {
 
 // para calcular fator de balanceamento
 int calculaFB(pNodoAVL *a) {                                   
-    return (Altura(a->esq) - Altura(a->dir));
+    return (altura(a->esq) - altura(a->dir));
 }
 
 // funcao para desenhar a árvore
-void Desenha(pNodoAVL *a , int nivel) {                        
+void desenha(pNodoAVL *a , int nivel) {                        
    int x;
    if (a !=NULL) {
       for (x=1; x<=nivel; x++)
          printf("=");
-         printf("%s FB= %d\n", a->nodoInfo.alimento, Calcula_FB(a));
+         printf("%s FB= %d\n", a->nodoInfo.alimento, calculaFB(a));
 
    if (a->esq != NULL) 
-      Desenha(a->esq, (nivel+1));
+      desenha(a->esq, (nivel+1));
    if (a->dir != NULL) 
-      Desenha(a->dir, (nivel+1));
+      desenha(a->dir, (nivel+1));
  }
 }
 
@@ -141,8 +142,8 @@ int is_avl(pNodoAVL *a) {                                       // de que q serv
    int altEsq, altDir;
 
   if (a!=NULL) {
-     altEsq = Altura(a->esq);
-     altDir = Altura(a->dir);
+     altEsq = altura(a->esq);
+     altDir = altura(a->dir);
      return ( (altEsq - altDir <2) && (altDir - altEsq <2) && (is_avl(a->esq)) && (is_avl(a->dir)) );
   }
    else
@@ -245,13 +246,13 @@ pNodoAVL* Caso2 (pNodoAVL *a , int *ok) {
 
 	ptu = a->dir;
 	if (ptu->FB == -1) {
-      Desenha(a,1);
+      desenha(a,1);
       printf("fazendo rotacao esquerda em %s\n",a->nodoInfo.alimento);
       a = rotacaoEsquerda(a);
    }
     
    else {
-      Desenha(a,1);
+      desenha(a,1);
       printf("fazendo rotacao dupla esquerda em %s\n",a->nodoInfo.alimento);
       a = rotacaoDuplaEsquerda(a);
    }

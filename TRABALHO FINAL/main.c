@@ -17,7 +17,7 @@ int main(void){
     strcpy(a4.alimento,"comida ilegal");
     a4.calorias = 50;
 
-    arv = insere(arv,a2);
+   // arv = insere(arv,a2);
     //arv = insere(arv,a3);
     //arv = insere(arv,a4);
 
@@ -26,7 +26,7 @@ int main(void){
     printf ("o valor eh: %i\n", compara);
 
 
-    preFixadoE(arv);
+    //preFixadoE(arv);
 
     
 

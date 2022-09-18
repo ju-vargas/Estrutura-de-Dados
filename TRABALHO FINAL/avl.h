@@ -4,9 +4,9 @@
 #include "bib.h"
 
 pNodoAVL * insereArvoreAVL(pNodoAVL * a, tipoInfo info);
-int Altura (pNodoAVL * a);
-int Calcula_FB(pNodoAVL * a);
-void Desenha(pNodoAVL * a , int nivel);
+int altura (pNodoAVL * a);
+int calculaFB(pNodoAVL * a);
+void desenha(pNodoAVL * a , int nivel);
 int is_avl(pNodoAVL * a);
 pNodoAVL * rotacaoDireita(pNodoAVL * pt);
 pNodoAVL * rotacaoEsquerda(pNodoAVL * pt);

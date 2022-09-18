@@ -27,8 +27,8 @@ typedef struct TNodoA pNodoA;
 struct TNodoAVL{
     tipoInfo nodoInfo;
     int FB;                     //fator de balanceamento
-    struct TNodoA *esq;
-    struct TNodoA *dir;
+    struct TNodoAVL *esq;
+    struct TNodoAVL *dir;
 };
 
 typedef struct TNodoAVL pNodoAVL;
