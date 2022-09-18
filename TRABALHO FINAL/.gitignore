@@ -1,0 +1,3 @@
+
+#ignorar os executaveis para nao poluir o codigo
+*.exe
