@@ -2,13 +2,13 @@
 
 int main(void){
 
-    int ok; 
+    int ok;
 
     pNodoA *arv;
-    pNodoAVL *arvAVL; 
+    pNodoAVL *arvAVL;
 
     arv = NULL;
-    arvAVL = NULL; 
+    arvAVL = NULL;
     int compara = 0;
 
     tipoInfo a1 = {0};
@@ -41,8 +41,8 @@ int main(void){
 
     printf("Em ordem crescente...\n");
     centralE(arv);
-    printf ("\n"); 
-
+    printf ("\n");
+    /*
 //espaço para AVL *******************************************************************************************************
     arvAVL = insereArvoreAVL(arvAVL,a5);
     arvAVL = insereAVL(arvAVL,a4, &ok);
@@ -50,16 +50,21 @@ int main(void){
     arvAVL = insereAVL(arvAVL,a2, &ok);
     arvAVL = insereAVL(arvAVL,a1, &ok);
 
-    printf ("Desenho AVL\n"); 
-    desenha(arvAVL, 1); 
+    printf ("Desenho AVL\n");
+    desenha(arvAVL, 1);
 //***********************************************************************************************************************
-
-    char comidaAchar[STRING_SIZE] = {"zizaniA"};
+    */
+    char comidaAchar[STRING_SIZE] = {"estrogonofe"};
     printf("Pesquisando por '%s'...\n",comidaAchar);
 
     pNodoA *nodoAchado;
     nodoAchado = NULL;
-    nodoAchado = pesquisa(arv,comidaAchar);
+
+    int comparacoes = 0;
+
+    //nodoAchado = pesquisa(arv,comidaAchar,&comparacoes);
+    nodoAchado = pesquisaPadrao(arv,comidaAchar,&comparacoes);
+
     if (nodoAchado){
         printf("Acheeeeei!\n");
         printf("Calorias: %d | Alimento: %s\n",nodoAchado->nodoInfo.calorias,nodoAchado->nodoInfo.alimento);
@@ -67,6 +72,23 @@ int main(void){
     else{
         printf("Nodo nao achado :(\n");
     }
-    
+
+    printf("Realizei %d comparacoes.\n",comparacoes);
+
+
+    /*strcpy(comidaAchar,"arroz");
+    comparacoes = 0;
+    nodoAchado = pesquisaDecrescente(arv,comidaAchar,&comparacoes);
+
+    if (nodoAchado){
+        printf("Acheeeeei!\n");
+        printf("Calorias: %d | Alimento: %s\n",nodoAchado->nodoInfo.calorias,nodoAchado->nodoInfo.alimento);
+    }
+    else{
+        printf("Nodo nao achado :(\n");
+    }
+
+    printf("Realizei %d comparacoes.\n",comparacoes);*/
+
     return 0;
 }

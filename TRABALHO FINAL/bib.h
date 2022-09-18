@@ -41,10 +41,13 @@ typedef struct TNodoAVL pNodoAVL;
 
 //FUNÇOES BIB.C *************************************************************************************************************
 int comparaAlimento (tipoInfo info, char nome[STRING_SIZE]);
-pNodoA *pesquisa(pNodoA *a, char comida[STRING_SIZE]); 
+pNodoA *pesquisaPadrao(pNodoA *a, char comida[STRING_SIZE], int *);
+pNodoA *pesquisaSelecionada(pNodoA *a, char comida[STRING_SIZE], int *);
+pNodoA *pesquisaCrescente(pNodoA *a, char comida[STRING_SIZE], int *);
+pNodoA *pesquisaDecrescente(pNodoA *a, char comida[STRING_SIZE], int *);
 
 void preFixadoE(pNodoA *a);
-void centralE(pNodoA *a); 
+void centralE(pNodoA *a);
 
 #include "abp.h"
 #include "avl.h"
