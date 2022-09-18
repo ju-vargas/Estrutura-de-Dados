@@ -1,4 +1,4 @@
-//#include "abp.h"
+#include "abp.h"
 #include "bib.h"
 
 pNodoA *insere (pNodoA *arv, tipoInfo info){
@@ -29,4 +29,13 @@ void preFixadoE(pNodoA *a){
     }
 }
 
+//funcao que compara o campo nome de um alimento com a palavra procurada
+//entrada: struct info do nodo, e palavra que quero comparar
+//saida: 1 quando palavra nodo > palavra, 0 para iguais, -1 para menor
+int comparaAlimento (tipoInfo info, char nome[50]) {
+    int compara = 0;
 
+    compara = strcmp (info.alimento, nome);
+
+    return compara; 
+}

@@ -19,11 +19,8 @@ struct TNodoA{
 
 typedef struct TNodoA pNodoA;
 
-//#include "abp.h"
-//#include "avl.h"
-
-pNodoA *insere(pNodoA *a, tipoInfo ch);
-void preFixadoE(pNodoA *a);
+#include "abp.h"
+#include "avl.h"
 
 
 

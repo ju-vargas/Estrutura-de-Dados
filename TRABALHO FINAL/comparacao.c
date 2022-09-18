@@ -8,7 +8,7 @@
 int main(void){
 
     char string1[10] = "morango"; 
-    char string2[10] = "maça";
+    char string2[10] = "mosa";
     int comp = 25; 
 
     comp = strcmp (string1, string2); 

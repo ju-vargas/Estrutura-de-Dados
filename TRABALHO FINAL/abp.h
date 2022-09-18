@@ -5,5 +5,6 @@
 
 pNodoA *insere(pNodoA *a, tipoInfo ch);
 void preFixadoE(pNodoA *a);
+int comparaAlimento (tipoInfo info, char nome[50]);
 
 #endif
