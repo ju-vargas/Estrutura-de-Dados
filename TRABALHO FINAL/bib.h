@@ -43,8 +43,10 @@ struct TNodoAVL{
 typedef struct TNodoAVL pNodoAVL;
 
 //FUNÇOES BIB.C *************************************************************************************************************
+int comparaAlimento (tipoInfo info, char nome[STRING_SIZE]);
+pNodoA *pesquisa(pNodoA *a, char comida[STRING_SIZE]); 
+
 void preFixadoE(pNodoA *a);
-int comparaAlimento (tipoInfo info, char nome[50]);
 void centralE(pNodoA *a); 
 
 #include "abp.h"

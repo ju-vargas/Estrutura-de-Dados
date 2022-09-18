@@ -52,6 +52,7 @@ int main(void){
 
     printf ("Desenho AVL\n"); 
     desenha(arvAVL, 1); 
+//***********************************************************************************************************************
 
     char comidaAchar[STRING_SIZE] = {"zizaniA"};
     printf("Pesquisando por '%s'...\n",comidaAchar);
@@ -62,8 +63,10 @@ int main(void){
     if (nodoAchado){
         printf("Acheeeeei!\n");
         printf("Calorias: %d | Alimento: %s\n",nodoAchado->nodoInfo.calorias,nodoAchado->nodoInfo.alimento);
-    }else{
+    }
+    else{
         printf("Nodo nao achado :(\n");
     }
+    
     return 0;
 }
