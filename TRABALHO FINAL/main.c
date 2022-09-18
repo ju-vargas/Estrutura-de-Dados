@@ -13,9 +13,13 @@ int main(void){
     strcpy(a3.alimento,"comida ilegal");
     a3.calorias = 100;
 
+    tipoInfo a4;
+    strcpy(a4.alimento,"comida ilegal");
+    a4.calorias = 50;
 
     arv = insere(arv,a2);
-    arv = insere(arv,a3);
+    //arv = insere(arv,a3);
+    //arv = insere(arv,a4);
 
     //aqui, estou chamando a funcao apenas para testá-la
     compara = comparaAlimento (a2, "co");
