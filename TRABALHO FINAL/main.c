@@ -12,7 +12,7 @@ int main(void){
     arv = NULL;
     arvAVL = NULL; 
  
-
+/*
     tipoInfo a1 = {0};
     strcpy(a1.alimento,"arroz");
     a1.calorias = 100;
@@ -32,10 +32,12 @@ int main(void){
     tipoInfo a5 = {0};
     strcpy(a5.alimento,"zizania");
     a5.calorias = 500;
-
+*/
 
 //LEITURA DE ARQUIVOS **************************************************************************************************
     
+    //essas variaveis guardam o nome dos arquivos
+    //se receber o nome do terminal, vou usar elas pra conseguir selecionar o arquivo
     char nomeArqCalorias[50] = "tables/1000Shuffled.csv"; 
     char nomeArqPaciente[50] = "tables/day1.csv"; 
 
@@ -44,43 +46,44 @@ int main(void){
 
     //preenchendo arvore ABP
     if (arqCalorias != NULL) {
-        nroNodos = preencheABP(arqCalorias, arv);
+        arv = preencheABP(arqCalorias, arv, &nroNodos);
     }
 
     rewind (arqCalorias); 
 
     //preenchendo arvore AVL
     if (arqCalorias != NULL) {
-        preencheAVL(arqCalorias, arvAVL, &ok);
+        arvAVL = preencheAVL(arqCalorias, arvAVL, &ok);
     }
 
     fclose (arqCalorias); 
 
 //espaço para ABP ******************************************************************************************************* 
- /*   
-    arv = insere(arv,a5);
-    arv = insere(arv,a4);
-    arv = insere(arv,a3);
-    arv = insere(arv,a2);
-    arv = insere(arv,a1);
+   
+    //arv = insere(arv,a5);
+    //arv = insere(arv,a4);
+    //arv = insere(arv,a3);
+    //arv = insere(arv,a2);
+    //arv = insere(arv,a1);
 
     printf("Em ordem crescente...\n");
     centralE(arv);
     printf ("\n"); 
-*/
+
 
 //espaço para AVL *******************************************************************************************************
-/*   
-    arvAVL = insereArvoreAVL(arvAVL,a5);
-    arvAVL = insereAVL(arvAVL,a4, &ok);
-    arvAVL = insereAVL(arvAVL,a3, &ok);
-    arvAVL = insereAVL(arvAVL,a2, &ok);
-    arvAVL = insereAVL(arvAVL,a1, &ok);
-
+  
+    //arvAVL = insereArvoreAVL(arvAVL,a5);
+    //arvAVL = insereAVL(arvAVL,a4, &ok);
+    //arvAVL = insereAVL(arvAVL,a3, &ok);
+    //arvAVL = insereAVL(arvAVL,a2, &ok);
+    //arvAVL = insereAVL(arvAVL,a1, &ok);
+    
+    //o desenha desenha em qual ordem?
     printf ("Desenho AVL\n"); 
     desenha(arvAVL, 1); 
     printf ("\n");
-*/
+
 //***********************************************************************************************************************
 
     char comidaAchar[STRING_SIZE] = {"zizaniA"};
@@ -97,21 +100,8 @@ int main(void){
         printf("Nodo nao achado :(\n");
     }
 
-    //espaco pra teste
-
-    printf("Em ordem crescente...\n");
-    centralE(arv);
-    printf ("\n");
-
-    printf ("arv eh %i", arv); 
-
-    printf ("Desenho AVL\n"); 
-    desenha(arvAVL, 1); 
-    printf ("\n");
-
-    printf ("arvAVL eh %i", arvAVL); 
-    //
-
+  
     printf ("numero de nodos eh: %i", nroNodos); 
+
     return 0;
 }

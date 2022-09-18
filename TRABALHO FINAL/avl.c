@@ -263,10 +263,9 @@ pNodoAVL* Caso2 (pNodoAVL *a , int *ok) {
 }
 
 // funcoes ARQUIVOS *******************************************************************************************************
-int preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok) {
+pNodoAVL * preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok) {
     char nomeAlimento[STRING_SIZE]; 
     int calorias = 0; 
-    int nroNodos; 
     tipoInfo infoAux; 
     int primeiro = TRUE; 
     
@@ -274,18 +273,16 @@ int preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok) {
 
         if (primeiro) {
             arvAVL = insereArvoreAVL (arvAVL, infoAux); 
-            nroNodos++; 
             primeiro = FALSE; 
         }      
         else {
             strcpy (infoAux.alimento, nomeAlimento); 
             infoAux.calorias = calorias; 
             arvAVL = insereAVL(arvAVL, infoAux, ok);  
-            nroNodos++;
         }
     } 
 
-    return nroNodos; 
+    return arvAVL; 
 }
 
 

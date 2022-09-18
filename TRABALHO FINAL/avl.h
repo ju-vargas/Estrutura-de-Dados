@@ -18,6 +18,6 @@ pNodoAVL * Caso2 (pNodoAVL * a , int *ok);
 
 pNodoAVL * insereAVL (pNodoAVL * a, tipoInfo x, int *ok);
 
-int preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok);
+pNodoAVL * preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok);
 
 #endif

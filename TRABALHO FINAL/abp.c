@@ -22,10 +22,9 @@ pNodoA *insere (pNodoA *arv, tipoInfo info){
 }
 
 // funcoes ARQUIVOS *******************************************************************************************************
-int preencheABP(FILE *arqCalorias, pNodoA *arv) {
+pNodoA * preencheABP(FILE *arqCalorias, pNodoA *arv, int *nroNodos) {
     char nomeAlimento[STRING_SIZE]; 
-    int calorias = 0; 
-    int nroNodos = 0; 
+    int calorias = 0;  
     tipoInfo infoAux; 
  
     while (fscanf(arqCalorias, "%[^;];%d", nomeAlimento, &calorias) == 2) {     //codigo baseado no stack overflow p/ como ler de dois em dois            
@@ -33,7 +32,8 @@ int preencheABP(FILE *arqCalorias, pNodoA *arv) {
         infoAux.calorias = calorias; 
 
         arv = insere (arv, infoAux);
-        nroNodos++; 
+        (*nroNodos)++; 
     } 
-    return nroNodos;
+
+    return arv;
 }
