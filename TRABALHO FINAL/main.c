@@ -1,8 +1,14 @@
 #include "bib.h"
 
 int main(void){
+
+    int ok; 
+
     pNodoA *arv;
+    pNodoAVL *arvAVL; 
+
     arv = NULL;
+    arvAVL = NULL; 
     int compara = 0;
 
     tipoInfo a1 = {0};
@@ -25,6 +31,8 @@ int main(void){
     strcpy(a5.alimento,"zizania");
     a5.calorias = 500;
 
+
+//espaço para ABP *******************************************************************************************************
     arv = insere(arv,a5);
     arv = insere(arv,a4);
     arv = insere(arv,a3);
@@ -33,6 +41,18 @@ int main(void){
 
     printf("Em ordem crescente...\n");
     centralE(arv);
+    printf ("\n"); 
+
+//espaço para AVL *******************************************************************************************************
+    arvAVL = insereArvoreAVL(arvAVL,a5);
+    arvAVL = insereAVL(arvAVL,a4, &ok);
+    arvAVL = insereAVL(arvAVL,a3, &ok);
+    arvAVL = insereAVL(arvAVL,a2, &ok);
+    arvAVL = insereAVL(arvAVL,a1, &ok);
+
+    printf ("Desenho AVL\n"); 
+    desenha(arvAVL, 1); 
+//***********************************************************************************************************************
 
     char comidaAchar[STRING_SIZE] = {"zizaniA"};
     printf("Pesquisando por '%s'...\n",comidaAchar);
@@ -43,8 +63,10 @@ int main(void){
     if (nodoAchado){
         printf("Acheeeeei!\n");
         printf("Calorias: %d | Alimento: %s\n",nodoAchado->nodoInfo.calorias,nodoAchado->nodoInfo.alimento);
-    }else{
+    }
+    else{
         printf("Nodo nao achado :(\n");
     }
+    
     return 0;
 }

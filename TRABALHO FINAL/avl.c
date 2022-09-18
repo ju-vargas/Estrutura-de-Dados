@@ -1,212 +1,273 @@
 #include "avl.h"
+#include "bib.h"
 
-pNodoA* InsereArvore(pNodoA* a, TipoInfo ch)
-{
-  if (a == NULL)
-  {
-    a = (pNodoA*) malloc(sizeof(pNodoA));
-    a->info = ch;
-    a->esq = NULL;
-    a->dir = NULL;
-    a->FB = 0; // o nodo é sempre inserido como folha então seu fator de balanceamento é 0
-  }
-  else
-  if (ch < (a->info))
-    a->esq = InsereArvore(a->esq,ch);
-  else
-    a->dir = InsereArvore(a->dir,ch);
-    return a;
+/*
+como implementar AVL?
+   1. criar structs (na TAD) ok
+   2. criar insere Ã¡rvore ok
+   3. saber calcular altura
+*/
+
+
+// INSERÃ‡AO ******************************************************************************************************************
+// base retirada dos exemplos no Moodle da disciplina
+
+pNodoAVL* insereArvoreAVL(pNodoAVL * a, tipoInfo info) {
+  
+   if (a == NULL) {
+      //alocando espaÃ§o para o nodo, dando um endereÃ§o a ele
+      a = (pNodoAVL*) malloc(sizeof(pNodoAVL));               
+
+      strcpy (a->nodoInfo.alimento, info.alimento);
+      a->nodoInfo.calorias = info.calorias;
+
+      a->esq = NULL;
+      a->dir = NULL;
+      // o nodo eh sempre inserido como folha entao seu fator de balanceamento eh 0
+      a->FB = 0;                                              
+   }
+
+   else {
+      // caso a info adicionada seja MENOR QUE seu pai
+      if (comparaAlimento(info, a->nodoInfo.alimento) < 0)    
+         a->esq = insereArvoreAVL(a->esq, info);
+      else
+         // caso a info adicionada seja MAIOR QUE seu pai
+         if (comparaAlimento(info, a->nodoInfo.alimento) > 0) 
+         a->dir = insereArvoreAVL(a->dir, info);
+   }
+
+   return a;
 }
 
-int Altura (pNodoA *a)
-{
-    int Alt_Esq, Alt_Dir;
-    if (a == NULL)
+
+// Insere nodo em uma arvore AVL
+// a eh a raiz, x eh  a chave a ser inserida, h eh a altura da arvore 
+pNodoAVL* insereAVL (pNodoAVL *a, tipoInfo x, int *ok) {
+
+
+   if (a == NULL) {
+      a = (pNodoAVL*) malloc(sizeof(pNodoAVL));
+      
+      strcpy (a->nodoInfo.alimento, x.alimento);
+      a->nodoInfo.calorias = x.calorias;
+
+      a->esq = NULL;
+      a->dir = NULL;
+      a->FB = 0; 
+	   *ok = 1;
+   }
+
+   else {
+      // caso a info adicionada seja MENOR QUE seu pai  
+      if (comparaAlimento(x, a->nodoInfo.alimento) < 0) {
+		   a->esq = insereAVL(a->esq,x,ok);
+         if (*ok) {
+   		   switch (a->FB) {
+        	      case -1: a->FB = 0; 
+                        *ok = 0; 
+                        break;
+			      case  0: a->FB = 1;  
+                        break;
+			      case  1:  
+                        a = Caso1(a,ok); 
+                        break;
+            }
+         }
+      }
+      // caso a info adicionada seja MAIOR  QUE seu pai 
+	   else if (comparaAlimento(x, a->nodoInfo.alimento) > 0) {
+  	      a->dir = insereAVL(a->dir,x,ok);
+         if (*ok) { 
+            switch (a->FB) {
+               case  1: a->FB = 0; 
+                        *ok = 0; 
+                        break;
+               case  0: a->FB = -1; 
+                        break;
+			      case -1: a = Caso2(a,ok); 
+                        break;
+            }
+         }
+      }
+   }
+   return a;
+}
+
+
+
+
+// FUNÃ‡OES *********************************************************************************************************************
+// base retirada dos exemplos no Moodle da disciplina
+
+// recebo o endereÃ§o do nodo e vejo sua altura 
+int altura (pNodoAVL *a) {                                    
+   int altEsq, altDir;
+   if (a == NULL)
       return 0;
-    else
-    {
-       Alt_Esq = Altura (a->esq);
-       Alt_Dir = Altura (a->dir);
-       if (Alt_Esq > Alt_Dir)
-         return (1 + Alt_Esq);
-       else
-         return (1 + Alt_Dir);
+
+   else {
+      altEsq = altura (a->esq);
+      altDir = altura (a->dir);
+
+      if (altEsq > altDir)
+         return (1 + altEsq);
+      else
+         return (1 + altDir);
      }
 }
 
-int Calcula_FB(pNodoA *a)
-{
-    return (Altura(a->esq) - Altura(a->dir));
+// para calcular fator de balanceamento
+int calculaFB(pNodoAVL *a) {                                   
+    return (altura(a->esq) - altura(a->dir));
 }
 
-void Desenha(pNodoA *a , int nivel)
-{
-int x;
+// funcao para desenhar a Ã¡rvore
+void desenha(pNodoAVL *a , int nivel) {                        
+   int x;
+   if (a !=NULL) {
+      for (x=1; x<=nivel; x++)
+         printf("=");
+         printf("%s FB= %d\n", a->nodoInfo.alimento, calculaFB(a));
 
- if (a !=NULL)
- {
-   for (x=1; x<=nivel; x++)
-      printf("=");
-  printf("%d FB= %d\n", a->info, Calcula_FB(a));
-   if (a->esq != NULL) Desenha(a->esq, (nivel+1));
-   if (a->dir != NULL) Desenha(a->dir, (nivel+1));
+   if (a->esq != NULL) 
+      desenha(a->esq, (nivel+1));
+   if (a->dir != NULL) 
+      desenha(a->dir, (nivel+1));
  }
 }
 
-int is_avl(pNodoA *a)
-{
-  int alt_esq, alt_dir;
+// funcao que verifica se eh AVL
+int is_avl(pNodoAVL *a) {                                       // de que q serve isso?    
+   int altEsq, altDir;
 
-  if (a!=NULL)
-  {
-     alt_esq = Altura(a->esq);
-     alt_dir = Altura(a->dir);
-     return ( (alt_esq - alt_dir <2) && (alt_dir - alt_esq <2) && (is_avl(a->esq)) && (is_avl(a->dir)) );
+  if (a!=NULL) {
+     altEsq = altura(a->esq);
+     altDir = altura(a->dir);
+     return ( (altEsq - altDir <2) && (altDir - altEsq <2) && (is_avl(a->esq)) && (is_avl(a->dir)) );
   }
-  else
-  return 1;
+   else
+      return 1;
 }
 
 
-pNodoA* rotacao_direita(pNodoA *pt){
-   pNodoA* ptu;
+// ROTAÃ‡Ã•ES ******************************************************************************************************************
+// base retirada dos exemplos no Moodle da disciplina
+pNodoAVL* rotacaoDireita(pNodoAVL *pt){
+   pNodoAVL* ptu;
 
-   ptu = pt->esq;
-   pt->esq = ptu->dir;
-   ptu->dir = pt;
+   ptu = pt->esq; 
+   pt->esq = ptu->dir; 
+   ptu->dir = pt; 
    pt->FB = 0;
-   pt = ptu;
+   pt = ptu; 
    return pt;
 }
 
-pNodoA* rotacao_esquerda(pNodoA *pt){
-   pNodoA* ptu;
+pNodoAVL* rotacaoEsquerda(pNodoAVL *pt){
+   pNodoAVL* ptu;
 
-   ptu = pt->dir;
-   pt->dir = ptu->esq;
-   ptu->esq = pt;
+   ptu = pt->dir; 
+   pt->dir = ptu->esq; 
+   ptu->esq = pt; 
    pt->FB = 0;
-   pt = ptu;
+   pt = ptu; 
+   return pt;
+} 
+
+pNodoAVL* rotacaoDuplaDireita (pNodoAVL* pt){
+   pNodoAVL *ptu, *ptv;
+
+   ptu = pt->esq; 
+   ptv = ptu->dir; 
+   ptu->dir = ptv->esq; 
+   ptv->esq = ptu; 
+   pt->esq = ptv->dir; 
+   ptv->dir = pt; 
+   if (ptv->FB == 1)   
+      pt->FB = -1;
+   else 
+      pt->FB = 0;
+   if (ptv->FB == -1)  
+      ptu->FB = 1;
+   else 
+      ptu->FB = 0;
+   pt = ptv; 
+   return pt;
+} 
+
+pNodoAVL* rotacaoDuplaEsquerda (pNodoAVL* pt){
+   pNodoAVL *ptu, *ptv;
+
+   ptu = pt->dir; 
+   ptv = ptu->esq; 
+   ptu->esq = ptv->dir; 
+   ptv->dir = ptu; 
+   pt->dir = ptv->esq; 
+   ptv->esq = pt; 
+   if (ptv->FB == -1) 
+      pt->FB = 1;
+   else 
+      pt->FB = 0;
+
+   if (ptv->FB == 1) 
+      ptu->FB = -1;
+   else 
+      ptu->FB = 0;
+
+   pt = ptv; 
    return pt;
 }
 
-pNodoA* rotacao_dupla_direita (pNodoA* pt){
-   pNodoA* ptu, *ptv;
 
-   ptu = pt->esq;
-   ptv = ptu->dir;
-   ptu->dir = ptv->esq;
-   ptv->esq = ptu;
-   pt->esq = ptv->dir;
-   ptv->dir = pt;
-   if (ptv->FB == 1)   pt->FB = -1;
-      else pt->FB = 0;
-   if (ptv->FB == -1)  ptu->FB = 1;
-      else ptu->FB = 0;
-   pt = ptv;
-   return pt;
-}
-
-pNodoA* rotacao_dupla_esquerda (pNodoA* pt){
-   pNodoA *ptu, *ptv;
-
-   ptu = pt->dir;
-   ptv = ptu->esq;
-   ptu->esq = ptv->dir;
-   ptv->dir = ptu;
-   pt->dir = ptv->esq;
-   ptv->esq = pt;
-   if (ptv->FB == -1) pt->FB = 1;
-     else pt->FB = 0;
-   if (ptv->FB == 1) ptu->FB = -1;
-      else ptu->FB = 0;
-   pt = ptv;
-   return pt;
-}
-
-
-pNodoA* Caso1 (pNodoA* a , int *ok)
-{
-   pNodoA *ptu;
+// CASOS **********************************************************************************************************************
+// base retirada dos exemplos no Moodle da disciplina
+pNodoAVL* Caso1 (pNodoAVL* a , int *ok) {
+   pNodoAVL *ptu; 
 
 	ptu = a->esq;
-	if (ptu->FB == 1)
-    {
-        printf("fazendo rotacao direita em %d\n",a->info);
-        a = rotacao_direita(a);
-     }
-    else
-    {
-        printf("fazendo rotacao dupla direita em %d\n",a->info);
-        a = rotacao_dupla_direita(a);
-    }
+	if (ptu->FB == 1) {    
+      printf("fazendo rotacao direita em %s\n",a->nodoInfo.alimento);
+      a = rotacaoDireita(a);
+   }
 
-    a->FB = 0;
+   else {
+      printf("fazendo rotacao dupla direita em %s\n",a->nodoInfo.alimento);
+      a = rotacaoDuplaDireita(a);
+   }
+	
+   a->FB = 0;
 	*ok = 0;
 	return a;
 }
 
-pNodoA* Caso2 (pNodoA *a , int *ok)
-{
-    pNodoA *ptu;
+pNodoAVL* Caso2 (pNodoAVL *a , int *ok) {
+   pNodoAVL *ptu; 
 
 	ptu = a->dir;
-	if (ptu->FB == -1)
-    {
-       Desenha(a,1);
-       printf("fazendo rotacao esquerda em %d\n",a->info);
-       a=rotacao_esquerda(a);
-    }
-    else
-    {
-       Desenha(a,1);
-       printf("fazendo rotacao dupla esquerda em %d\n",a->info);
-       a=rotacao_dupla_esquerda(a);
-    }
+	if (ptu->FB == -1) {
+      desenha(a,1);
+      printf("fazendo rotacao esquerda em %s\n",a->nodoInfo.alimento);
+      a = rotacaoEsquerda(a);
+   }
+    
+   else {
+      desenha(a,1);
+      printf("fazendo rotacao dupla esquerda em %s\n",a->nodoInfo.alimento);
+      a = rotacaoDuplaEsquerda(a);
+   }
+
 	a->FB = 0;
 	*ok = 0;
 	return a;
 }
 
-pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int *ok)
-{
-/* Insere nodo em uma árvore AVL, onde A representa a raiz da árvore,
-  x, a chave a ser inserida e h a altura da árvore */
 
-     if (a == NULL)
-     {
-     	a = (pNodoA*) malloc(sizeof(pNodoA));
-        a->info = x;
-        a->esq = NULL;
-        a->dir = NULL;
-        a->FB = 0;
-	    *ok = 1;
-     }
-     else
-     if (x < a->info)
-     {
-		a->esq = InsereAVL(a->esq,x,ok);
-        if (*ok)
-        {
-   		    switch (a->FB) {
-        	  case -1:  a->FB = 0; *ok = 0; break;
-			  case  0:  a->FB = 1;  break;
-			  case  1:  a=Caso1(a,ok); break;
-            }
-         }
-     }
-	 else
-     {
-  		    a->dir = InsereAVL(a->dir,x,ok);
-            if (*ok)
-            {
-              switch (a->FB) {
-                case  1:  a->FB = 0; *ok = 0; break;
-                case  0:  a->FB = -1; break;
-			    case -1:  a = Caso2(a,ok); break;
-             }
-            }
-     }
-     return a;
-}
+
+
+
+
+
+
+
 

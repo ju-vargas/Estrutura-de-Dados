@@ -3,18 +3,21 @@
 
 #include "bib.h"
 
-pNodoA * InsereArvore(pNodoA * a, tipoInfo ch);
-int Altura (pNodoA * a);
-int Calcula_FB(pNodoA * a);
-void Desenha(pNodoA * a , int nivel);
-int is_avl(pNodoA * a);
-pNodoA * rotacao_direita(pNodoA * pt);
-pNodoA * rotacao_esquerda(pNodoA * pt);
-pNodoA * rotacao_dupla_direita (pNodoA * pt);
-pNodoA * rotacao_dupla_esquerda (pNodoA * pt);
-pNodoA * Caso1 (pNodoA * a , int *ok);
-pNodoA * Caso2 (pNodoA * a , int *ok);
-pNodoA * InsereAVL (pNodoA * a, tipoInfo x, int *ok);
+pNodoAVL * insereArvoreAVL(pNodoAVL * a, tipoInfo info);
+int altura (pNodoAVL * a);
+int calculaFB(pNodoAVL * a);
+void desenha(pNodoAVL * a , int nivel);
+int is_avl(pNodoAVL * a);
+pNodoAVL * rotacaoDireita(pNodoAVL * pt);
+pNodoAVL * rotacaoEsquerda(pNodoAVL * pt);
+pNodoAVL * rotacaoDuplaDireita (pNodoAVL * pt);
+pNodoAVL * rotacaoDuplaEsquerda (pNodoAVL * pt);
+
+pNodoAVL * Caso1 (pNodoAVL * a , int *ok);
+pNodoAVL * Caso2 (pNodoAVL * a , int *ok);
+
+pNodoAVL * insereAVL (pNodoAVL * a, tipoInfo x, int *ok);
+
 
 
 #endif
