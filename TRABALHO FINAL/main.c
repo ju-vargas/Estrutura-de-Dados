@@ -34,5 +34,17 @@ int main(void){
     printf("Em ordem crescente...\n");
     centralE(arv);
 
+    char comidaAchar[STRING_SIZE] = {"zizaniA"};
+    printf("Pesquisando por '%s'...\n",comidaAchar);
+
+    pNodoA *nodoAchado;
+    nodoAchado = NULL;
+    nodoAchado = pesquisa(arv,comidaAchar);
+    if (nodoAchado){
+        printf("Acheeeeei!\n");
+        printf("Calorias: %d | Alimento: %s\n",nodoAchado->nodoInfo.calorias,nodoAchado->nodoInfo.alimento);
+    }else{
+        printf("Nodo nao achado :(\n");
+    }
     return 0;
 }
