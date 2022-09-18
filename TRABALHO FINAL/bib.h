@@ -6,9 +6,13 @@
 #include <conio.h>
 #include <string.h>
 
+#define TRUE 1
+#define FALSE 0
+#define STRING_SIZE 50
+
 typedef struct tipoInfo{
     int calorias;
-    char alimento[50];
+    char alimento[STRING_SIZE];
 }tipoInfo;
 
 struct TNodoA{
@@ -21,10 +25,5 @@ typedef struct TNodoA pNodoA;
 
 #include "abp.h"
 #include "avl.h"
-
-
-
-#define TRUE 1
-#define FALSE 0
 
 #endif
