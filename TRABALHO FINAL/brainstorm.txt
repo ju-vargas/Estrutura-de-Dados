@@ -43,5 +43,23 @@ O que deve ser feito?
 
 
 
-    ;consigo pesquisar só uma coisa de cada vez? ou consigo ter um array pra preencher enquanto percorro a árvore? 
 
+
+
+;consigo pesquisar só uma coisa de cada vez? ou consigo ter um array pra preencher enquanto percorro a árvore? 
+; - pesquisamos o m, chegamos nele, vemos se é morango
+-............. não é morango, vemos a segunda letra 
+-.......................... se a segunda letra é maior que 'o', vou pra direita
+-.......................... se a segunda letra é menor que 'o' vou pra esquerda
+
+
+- entao, confiro a primeira e segunda letra
+-............. se a primeira letra do nodo à esquerda é menor que o 'm', sei que nao tem
+-............. se a primeira letra do nodo à direita é maior que 'm', sei que nao tem
+
+-............. se em um desses casos for m
+-.......................... confiro a segunda letra, vendo se é maior ou menor que 'o'
+
+CASO DE ESTAR NO NODO DA DIREITA:
+-...................................... se a segunda da letra da palavra à direita for MAIOR, não tem (?)
+-...................................... se a segunda da letra da palavra à direita for MENOR, continuo procurando (?)

@@ -1,4 +1,5 @@
-#include "abp.h"
+//#include "abp.h"
+#include "bib.h"
 
 pNodoA *insere (pNodoA *arv, tipoInfo info){
     if (arv == NULL){
