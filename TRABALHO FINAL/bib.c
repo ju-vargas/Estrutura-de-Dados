@@ -17,3 +17,11 @@ void preFixadoE(pNodoA *a){
         preFixadoE(a->dir);
     }
 }
+
+void centralE(pNodoA *a){
+    if (a){
+        centralE(a->esq);
+        printf("Calorias: %d | Alimento: %s\n",a->nodoInfo.calorias,a->nodoInfo.alimento);
+        centralE(a->dir);
+    }
+}

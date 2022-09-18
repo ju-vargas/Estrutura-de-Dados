@@ -44,6 +44,7 @@ typedef struct TNodoAVL pNodoAVL;
 //FUNÇOES BIB.C *************************************************************************************************************
 void preFixadoE(pNodoA *a);
 int comparaAlimento (tipoInfo info, char nome[50]);
+void centralE(pNodoA *a); 
 
 #include "abp.h"
 #include "avl.h"
