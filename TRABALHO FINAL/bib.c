@@ -1,5 +1,8 @@
 #include "bib.h"
 
+
+// funcoes ARVORES *******************************************************************************************************
+
 //funcao que compara o campo nome de um alimento com a palavra procurada
 //entrada: struct info do nodo, e palavra que quero comparar
 //saida: 1 quando palavra nodo > palavra, 0 para iguais, -1 para menor
@@ -27,6 +30,8 @@ int comparaAlimento (tipoInfo info, char nome[STRING_SIZE]) {
     return strcmp(infoNodoUpper, nomeUpper);
 }
 
+
+//funcao para pesquisa binária!
 pNodoA *pesquisa(pNodoA *a, char comida[STRING_SIZE]){
     if(a){
         int comparacao = comparaAlimento(a->nodoInfo, comida);
@@ -59,3 +64,7 @@ void centralE(pNodoA *a){
         centralE(a->dir);
     }
 }
+
+// funcoes ARQUIVOS *******************************************************************************************************
+
+

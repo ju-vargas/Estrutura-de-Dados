@@ -2,14 +2,16 @@
 
 int main(void){
 
+//VARIAVEIS *********************************************************************************************************
     int ok; 
+    int compara = 0;
+    int nroNodos = 0; 
 
     pNodoA *arv;
     pNodoAVL *arvAVL; 
-
     arv = NULL;
     arvAVL = NULL; 
-    int compara = 0;
+ 
 
     tipoInfo a1 = {0};
     strcpy(a1.alimento,"arroz");
@@ -32,7 +34,30 @@ int main(void){
     a5.calorias = 500;
 
 
-//espaço para ABP *******************************************************************************************************
+//LEITURA DE ARQUIVOS **************************************************************************************************
+    
+    char nomeArqCalorias[50] = "tables/1000Shuffled.csv"; 
+    char nomeArqPaciente[50] = "tables/day1.csv"; 
+
+
+    FILE *arqCalorias = fopen(nomeArqCalorias, "r");
+
+    //preenchendo arvore ABP
+    if (arqCalorias != NULL) {
+        nroNodos = preencheABP(arqCalorias, arv);
+    }
+
+    rewind (arqCalorias); 
+
+    //preenchendo arvore AVL
+    if (arqCalorias != NULL) {
+        preencheAVL(arqCalorias, arvAVL, &ok);
+    }
+
+    fclose (arqCalorias); 
+
+//espaço para ABP ******************************************************************************************************* 
+ /*   
     arv = insere(arv,a5);
     arv = insere(arv,a4);
     arv = insere(arv,a3);
@@ -42,8 +67,10 @@ int main(void){
     printf("Em ordem crescente...\n");
     centralE(arv);
     printf ("\n"); 
+*/
 
 //espaço para AVL *******************************************************************************************************
+/*   
     arvAVL = insereArvoreAVL(arvAVL,a5);
     arvAVL = insereAVL(arvAVL,a4, &ok);
     arvAVL = insereAVL(arvAVL,a3, &ok);
@@ -52,6 +79,8 @@ int main(void){
 
     printf ("Desenho AVL\n"); 
     desenha(arvAVL, 1); 
+    printf ("\n");
+*/
 //***********************************************************************************************************************
 
     char comidaAchar[STRING_SIZE] = {"zizaniA"};
@@ -67,6 +96,22 @@ int main(void){
     else{
         printf("Nodo nao achado :(\n");
     }
-    
+
+    //espaco pra teste
+
+    printf("Em ordem crescente...\n");
+    centralE(arv);
+    printf ("\n");
+
+    printf ("arv eh %i", arv); 
+
+    printf ("Desenho AVL\n"); 
+    desenha(arvAVL, 1); 
+    printf ("\n");
+
+    printf ("arvAVL eh %i", arvAVL); 
+    //
+
+    printf ("numero de nodos eh: %i", nroNodos); 
     return 0;
 }
