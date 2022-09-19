@@ -43,8 +43,12 @@ typedef struct TNodoAVL pNodoAVL;
 int comparaAlimento (tipoInfo info, char nome[STRING_SIZE]);
 pNodoA *pesquisaPadrao(pNodoA *a, char comida[STRING_SIZE], int *);
 pNodoA *pesquisaSelecionada(pNodoA *a, char comida[STRING_SIZE], int *);
-pNodoA *pesquisaCrescente(pNodoA *a, char comida[STRING_SIZE], int *);
-pNodoA *pesquisaDecrescente(pNodoA *a, char comida[STRING_SIZE], int *);
+pNodoA *pesquisaCentralE(pNodoA *a, char comida[STRING_SIZE], int *comp);
+pNodoA *pesquisaCentralD(pNodoA *a, char comida[STRING_SIZE], int *comp);
+pNodoA *pesquisaPreFixadoE(pNodoA *a, char comida[STRING_SIZE], int *comp);
+pNodoA *pesquisaPreFixadoD(pNodoA *a, char comida[STRING_SIZE], int *comp);
+pNodoA *pesquisaPosFixadoE(pNodoA *a, char comida[STRING_SIZE], int *comp);
+pNodoA *pesquisaPosFixadoD(pNodoA *a, char comida[STRING_SIZE], int *comp);
 
 void preFixadoE(pNodoA *a);
 void centralE(pNodoA *a);

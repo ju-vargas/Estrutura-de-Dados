@@ -51,21 +51,24 @@ pNodoA *pesquisaPadrao(pNodoA *a, char comida[STRING_SIZE], int *comp){
 pNodoA *pesquisaSelecionada(pNodoA *a, char comida[STRING_SIZE], int *comp){
     char primeiraLetra = comida[0];
 
-    if (toupper(primeiraLetra) <= 'M'){
+    if (toupper(primeiraLetra) == 'A'){
         printf("Escolhendo comecar pela letra A\n");
-        return pesquisaCrescente(a,comida,comp);
-    }else{
+        return pesquisaCentralE(a,comida,comp);
+    }else if (toupper(primeiraLetra) == 'Z'){
         printf("Escolhendo comecar pela letra Z\n");
-        return pesquisaDecrescente(a,comida,comp);
+        return pesquisaCentralD(a,comida,comp);
+    }else{
+        printf("Escolhendo pesquisa padrao\n");
+        return pesquisaPadrao(a,comida,comp);
     }
 }
 
 pNodoA *guardar;
 int achei = 0;
-pNodoA *pesquisaCrescente(pNodoA *a, char comida[STRING_SIZE], int *comp){
+pNodoA *pesquisaCentralE(pNodoA *a, char comida[STRING_SIZE], int *comp){
     achei = 0;
     if(a){
-        pesquisaCrescente(a->esq,comida,comp);
+        pesquisaCentralE(a->esq,comida,comp);
 
         if (!achei){
             //printf("%p\n",a);
@@ -85,7 +88,7 @@ pNodoA *pesquisaCrescente(pNodoA *a, char comida[STRING_SIZE], int *comp){
         }
 
         if (!achei){
-            pesquisaCrescente(a->dir,comida,comp);
+            pesquisaCentralE(a->dir,comida,comp);
         }
 
         return guardar;
@@ -93,40 +96,129 @@ pNodoA *pesquisaCrescente(pNodoA *a, char comida[STRING_SIZE], int *comp){
     return NULL;
 }
 
-pNodoA *pesquisaDecrescente(pNodoA *a, char comida[STRING_SIZE], int *comp){
+pNodoA *pesquisaCentralD(pNodoA *a, char comida[STRING_SIZE], int *comp){
     achei = 0;
     if(a){
-        pesquisaDecrescente(a->dir,comida,comp);
+        pesquisaCentralD(a->dir,comida,comp);
 
         if (!achei){
-            //printf("%p\n",a);
-            //printf("comidaInfo: %s\n",a->nodoInfo.alimento);
-            //printf("comida: %s\n",comida);
             int comparacao = comparaAlimento(a->nodoInfo, comida);
-            //printf("comparacao: %d\n",comparacao);
             int temp = *comp;
             temp++;
             *comp = temp;
             if(comparacao == 0){
-                //printf("achei, amigos! %p\n\n",a);
                 guardar = a;
                 achei = 1;
             }
-            //printf("\n");
         }
 
         if (!achei){
-            pesquisaDecrescente(a->esq,comida,comp);
+            pesquisaCentralD(a->esq,comida,comp);
         }
 
         return guardar;
     }
     return NULL;
 }
+
+pNodoA *pesquisaPreFixadoD(pNodoA *a, char comida[STRING_SIZE], int *comp){
+    achei = 0;
+    if(a){
+        if (!achei){
+            int comparacao = comparaAlimento(a->nodoInfo, comida);
+            int temp = *comp;
+            temp++;
+            *comp = temp;
+            if(comparacao == 0){
+                guardar = a;
+                achei = 1;
+            }
+        }
+
+        if (!achei){
+            pesquisaPreFixadoD(a->dir,comida,comp);
+        }
+
+        if (!achei){
+            pesquisaPreFixadoD(a->esq,comida,comp);
+        }
+
+        return guardar;
+    }
+    return NULL;
+}
+
+pNodoA *pesquisaPreFixadoE(pNodoA *a, char comida[STRING_SIZE], int *comp){
+    achei = 0;
+    if(a){
+        if (!achei){
+            int comparacao = comparaAlimento(a->nodoInfo, comida);
+            int temp = *comp;
+            temp++;
+            *comp = temp;
+            if(comparacao == 0){
+                guardar = a;
+                achei = 1;
+            }
+        }
+
+        if (!achei){
+            pesquisaPreFixadoE(a->esq,comida,comp);
+        }
+
+        if (!achei){
+            pesquisaPreFixadoE(a->dir,comida,comp);
+        }
+
+        return guardar;
+    }
+    return NULL;
+}
+
+pNodoA *pesquisaPosFixadoE(pNodoA *a, char comida[STRING_SIZE], int *comp){
+    achei = 0;
+    if(a){
+        pesquisaPosFixadoE(a->esq,comida,comp);
+        pesquisaPosFixadoE(a->dir,comida,comp);
+        if (!achei){
+            int comparacao = comparaAlimento(a->nodoInfo, comida);
+            int temp = *comp;
+            temp++;
+            *comp = temp;
+            if(comparacao == 0){
+                guardar = a;
+                achei = 1;
+            }
+        }
+        return guardar;
+    }
+    return NULL;
+}
+
+pNodoA *pesquisaPosFixadoD(pNodoA *a, char comida[STRING_SIZE], int *comp){
+    achei = 0;
+    if(a){
+        pesquisaPosFixadoD(a->dir,comida,comp);
+        pesquisaPosFixadoD(a->esq,comida,comp);
+        if (!achei){
+            int comparacao = comparaAlimento(a->nodoInfo, comida);
+            int temp = *comp;
+            temp++;
+            *comp = temp;
+            if(comparacao == 0){
+                guardar = a;
+                achei = 1;
+            }
+        }
+        return guardar;
+    }
+    return NULL;
+}
+
 
 void preFixadoE(pNodoA *a){
     if (a){
-        printf("Calorias: %d | Alimento: %s - ",a->nodoInfo.calorias,a->nodoInfo.alimento);
+        printf("Calorias: %d | Alimento: %s\n",a->nodoInfo.calorias,a->nodoInfo.alimento);
         preFixadoE(a->esq);
         preFixadoE(a->dir);
     }
