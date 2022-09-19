@@ -4,6 +4,6 @@
 #include "bib.h"
 
 pNodoA *insere(pNodoA *a, tipoInfo ch);
-
+pNodoA *preencheABP(FILE *arqCalorias, pNodoA *arv, int *nroNodos);
 
 #endif

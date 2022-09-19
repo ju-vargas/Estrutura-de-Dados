@@ -227,12 +227,12 @@ pNodoAVL* Caso1 (pNodoAVL* a , int *ok) {
 
 	ptu = a->esq;
 	if (ptu->FB == 1) {    
-      printf("fazendo rotacao direita em %s\n",a->nodoInfo.alimento);
+     // printf("fazendo rotacao direita em %s\n",a->nodoInfo.alimento);
       a = rotacaoDireita(a);
    }
 
    else {
-      printf("fazendo rotacao dupla direita em %s\n",a->nodoInfo.alimento);
+      //printf("fazendo rotacao dupla direita em %s\n",a->nodoInfo.alimento);
       a = rotacaoDuplaDireita(a);
    }
 	
@@ -246,14 +246,14 @@ pNodoAVL* Caso2 (pNodoAVL *a , int *ok) {
 
 	ptu = a->dir;
 	if (ptu->FB == -1) {
-      desenha(a,1);
-      printf("fazendo rotacao esquerda em %s\n",a->nodoInfo.alimento);
+      //desenha(a,1);
+      //printf("fazendo rotacao esquerda em %s\n",a->nodoInfo.alimento);
       a = rotacaoEsquerda(a);
    }
     
    else {
-      desenha(a,1);
-      printf("fazendo rotacao dupla esquerda em %s\n",a->nodoInfo.alimento);
+      //desenha(a,1);
+      //printf("fazendo rotacao dupla esquerda em %s\n",a->nodoInfo.alimento);
       a = rotacaoDuplaEsquerda(a);
    }
 
@@ -262,6 +262,28 @@ pNodoAVL* Caso2 (pNodoAVL *a , int *ok) {
 	return a;
 }
 
+// funcoes ARQUIVOS *******************************************************************************************************
+pNodoAVL * preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok) {
+    char nomeAlimento[STRING_SIZE]; 
+    int calorias = 0; 
+    tipoInfo infoAux; 
+    int primeiro = TRUE; 
+    
+    while (fscanf(arqCalorias, "%[^;];%d", nomeAlimento, &calorias) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois  
+
+        if (primeiro) {
+            arvAVL = insereArvoreAVL (arvAVL, infoAux); 
+            primeiro = FALSE; 
+        }      
+        else {
+            strcpy (infoAux.alimento, nomeAlimento); 
+            infoAux.calorias = calorias; 
+            arvAVL = insereAVL(arvAVL, infoAux, ok);  
+        }
+    } 
+
+    return arvAVL; 
+}
 
 
 
