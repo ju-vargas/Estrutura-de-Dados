@@ -80,12 +80,12 @@ int main(void){
     //arvAVL = insereAVL(arvAVL,a1, &ok);
     
     //o desenha desenha em qual ordem?
-    printf ("Desenho AVL\n"); 
-    desenha(arvAVL, 1); 
-    printf ("\n");
+   // printf ("Desenho AVL\n"); 
+    //desenha(arvAVL, 1); 
+    //printf ("\n");
 
 //***********************************************************************************************************************
-    */
+
     char comidaAchar[STRING_SIZE] = {"estrogonofe"};
     printf("Pesquisando por '%s'...\n",comidaAchar);
 
@@ -122,5 +122,7 @@ int main(void){
 
     printf("Realizei %d comparacoes.\n",comparacoes);*/
 
+
+    printf ("numero de nodos eh: %i", nroNodos);
     return 0;
 }
