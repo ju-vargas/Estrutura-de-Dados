@@ -3,15 +3,16 @@
 int main(void){
 
 //VARIAVEIS *********************************************************************************************************
-    int ok;
+    int ok; 
     int compara = 0;
-    int nroNodos = 0;
+    int nroNodos = 0; 
+    int comparacoes = 0;
 
     pNodoA *arv;
-    pNodoAVL *arvAVL;
+    pNodoAVL *arvAVL; 
     arv = NULL;
-    arvAVL = NULL;
-
+    arvAVL = NULL; 
+ 
 /*
     tipoInfo a1 = {0};
     strcpy(a1.alimento,"arroz");
@@ -34,12 +35,13 @@ int main(void){
     a5.calorias = 500;
 */
 
-//LEITURA DE ARQUIVOS **************************************************************************************************
-
+//LEITURA DE ARQUIVO CALORIAS ******************************************************************************************
+    
     //essas variaveis guardam o nome dos arquivos
     //se receber o nome do terminal, vou usar elas pra conseguir selecionar o arquivo
-    char nomeArqCalorias[50] = "../tables/1000Sorted.csv";
-    char nomeArqPaciente[50] = "../tables/day1.csv";
+    char nomeArqCalorias[50] = "tables/1000Shuffled.csv"; 
+    char nomeArqPaciente[50] = "tables/day1.csv"; 
+    char nomeArqSaida[50] = "tables/Saida_day1.txt"; 
 
 
     FILE *arqCalorias = fopen(nomeArqCalorias, "r");
@@ -49,53 +51,107 @@ int main(void){
         arv = preencheABP(arqCalorias, arv, &nroNodos);
     }
 
-    rewind (arqCalorias);
+    rewind (arqCalorias); 
 
     //preenchendo arvore AVL
     if (arqCalorias != NULL) {
         arvAVL = preencheAVL(arqCalorias, arvAVL, &ok);
     }
 
-    fclose (arqCalorias);
+    fclose (arqCalorias); 
 
-//espaço para ABP *******************************************************************************************************
+//LEITURA DE ARQUIVO CALORIAS ******************************************************************************************
+//criar função aqui? 
+    //le arquivo do paciente um de cada vez
+    //pesquisa na árvore 
+    //escreve e fecha 
 
-    //arv = insere(arv,a5);
-    //arv = insere(arv,a4);
-    //arv = insere(arv,a3);
-    //arv = insere(arv,a2);
-    //arv = insere(arv,a1);
+    char alimentoPaciente[STRING_SIZE]; 
+    int gramasAlimento = 0; 
+    int caloriasAlimento= 0; 
+    int caloriasCalculada = 0; 
+    int caloriasTotal = 0; 
 
+    pNodoA * auxCalorias; 
+    auxCalorias = NULL; 
+
+    FILE *arqPaciente = fopen(nomeArqPaciente, "r");
+    FILE *arqSaida = fopen(nomeArqSaida, "w"); 
+
+    if (arqPaciente != NULL && arqSaida != NULL) {
+        fprintf (arqSaida, "Calorias calculadas para %s usando a tabela %s.\n\n", nomeArqPaciente, nomeArqCalorias); 
+       
+        while (fscanf(arqCalorias, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois  
+            //qual pesquisa usar aqui, qual arvore? 
+            //por enquanto tem para ABP, fazer partes para outras pesquisas!!!
+
+            //fazer funcao para calcula calorias
+            auxCalorias = pesquisaPadrao(arv,alimentoPaciente,&comparacoes);
+            if (auxCalorias != NULL){
+                caloriasAlimento = auxCalorias->nodoInfo.calorias; 
+                caloriasCalculada = (caloriasAlimento*gramasAlimento)/100;
+                caloriasTotal += caloriasCalculada; 
+                fprintf (arqSaida, "%ig de %s (%i calorias por 100g) = %i calorias\n", gramasAlimento, alimentoPaciente, caloriasAlimento, caloriasCalculada);
+            }
+            else 
+                fprintf (arqSaida, "As calorias de %s não estão contabilizadas\n"); 
+        }
+            fprintf (arqSaida, "\nTotal de %i calorias consumidas no dia\n\n", caloriasTotal);
+    }
+
+    fprintf (arqSaida, "======== ESTATÍSTICAS ABP ============\n");
+    fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
+    fprintf (arqSaida, "Altura: \n"); 
+    fprintf (arqSaida, "Rotacoes: \n");
+    fprintf (arqSaida, "Numero de comparacoes: %i\n\n", comparacoes);
+
+
+    fprintf (arqSaida, "======== ESTATÍSTICAS AVL ============\n");
+    fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
+    fprintf (arqSaida, "Altura: \n"); 
+    fprintf (arqSaida, "Rotacoes: \n");
+    fprintf (arqSaida, "Numero de comparacoes: \n");
+
+    fclose (arqSaida); 
+    fclose (arqPaciente);
+
+//espaço para ABP ******************************************************************************************************* 
     printf("Em ordem crescente...\n");
-    preFixadoE(arv);
-    printf ("\n");
-
+    centralE(arv);
+    printf ("\n"); 
 
 //espaço para AVL *******************************************************************************************************
-
-    //arvAVL = insereArvoreAVL(arvAVL,a5);
-    //arvAVL = insereAVL(arvAVL,a4, &ok);
-    //arvAVL = insereAVL(arvAVL,a3, &ok);
-    //arvAVL = insereAVL(arvAVL,a2, &ok);
-    //arvAVL = insereAVL(arvAVL,a1, &ok);
-
     //o desenha desenha em qual ordem?
-    //printf ("Desenho AVL\n");
-    //desenha(arvAVL, 1);
+    //printf ("Desenho AVL\n"); 
+    //desenha(arvAVL, 1); 
     //printf ("\n");
 
-//***********************************************************************************************************************
+    printf ("numero de nodos eh: %i", nroNodos);
+    return 0;
+}
 
-    char comidaAchar[STRING_SIZE] = {"DILL"};
+
+
+
+
+
+
+
+
+
+
+
+//AREA DE TESTES **************************************************************************************************************
+ /*
+    char comidaAchar[STRING_SIZE] = {"estrogonofe"};
     printf("Pesquisando por '%s'...\n",comidaAchar);
 
     pNodoA *nodoAchado;
     nodoAchado = NULL;
 
-    int comparacoes = 0;
 
     //nodoAchado = pesquisa(arv,comidaAchar,&comparacoes);
-    nodoAchado = pesquisaSelecionada(arv,comidaAchar,&comparacoes);
+    nodoAchado = pesquisaPadrao(arv,comidaAchar,&comparacoes);
 
     if (nodoAchado){
         printf("Acheeeeei!\n");
@@ -106,22 +162,7 @@ int main(void){
     }
 
     printf("Realizei %d comparacoes.\n",comparacoes);
-
-    printf("\n");
-
-    comparacoes = 0;
-
-    nodoAchado = pesquisaPosFixadoE(arv,comidaAchar,&comparacoes);
-
-    if (nodoAchado){
-        printf("Acheeeeei!\n");
-        printf("Calorias: %d | Alimento: %s\n",nodoAchado->nodoInfo.calorias,nodoAchado->nodoInfo.alimento);
-    }
-    else{
-        printf("Nodo nao achado :(\n");
-    }
-
-    printf("Realizei %d comparacoes.\n",comparacoes);
+*/
 
     /*strcpy(comidaAchar,"arroz");
     comparacoes = 0;
@@ -136,6 +177,3 @@ int main(void){
     }
 
     printf("Realizei %d comparacoes.\n",comparacoes);*/
-
-    return 0;
-}

@@ -269,7 +269,7 @@ pNodoAVL * preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok) {
     tipoInfo infoAux; 
     int primeiro = TRUE; 
     
-    while (fscanf(arqCalorias, "%[^;];%d", nomeAlimento, &calorias) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois  
+    while (fscanf(arqCalorias, "%[^;];%d\n", nomeAlimento, &calorias) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois  
 
         if (primeiro) {
             arvAVL = insereArvoreAVL (arvAVL, infoAux); 
