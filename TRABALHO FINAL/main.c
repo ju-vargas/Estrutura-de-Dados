@@ -91,7 +91,7 @@ int main(void){
     }else {
         fprintf (arqSaida, "Calorias calculadas para %s usando a tabela %s.\n\n", nomeArqPaciente, nomeArqCalorias);
 
-        while (fscanf(arqCalorias, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois
+        while (fscanf(arqPaciente, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois
             //qual pesquisa usar aqui, qual arvore?
             //por enquanto tem para ABP, fazer partes para outras pesquisas!!!
 
@@ -107,20 +107,33 @@ int main(void){
                 fprintf (arqSaida, "As calorias de %s não estão contabilizadas\n");
         }
             fprintf (arqSaida, "\nTotal de %i calorias consumidas no dia\n\n", caloriasTotal);
+
+        fprintf (arqSaida, "======== ESTATÍSTICAS ABP ============\n");
+        fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
+        fprintf (arqSaida, "Altura: %i\n",alturaABP(arv));
+        fprintf (arqSaida, "Rotacoes: 0\n");
+        fprintf (arqSaida, "Numero de comparacoes: %i\n\n", comparacoes);
+
+        rewind(arqPaciente);
+        comparacoes = 0;
+        while (fscanf(arqPaciente, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois
+            //qual pesquisa usar aqui, qual arvore?
+            //por enquanto tem para ABP, fazer partes para outras pesquisas!!!
+
+            //fazer funcao para calcula calorias
+            auxCalorias = pesquisaPadraoAVL(arvAVL,alimentoPaciente,&comparacoes);
+            if (auxCalorias != NULL)
+                printf ("%ig de %s (%i calorias por 100g) = %i calorias\n", gramasAlimento, alimentoPaciente, caloriasAlimento, caloriasCalculada);
+            else
+                printf ("As calorias de %s nao estao contabilizadas\n",alimentoPaciente);
+        }
+        fprintf (arqSaida, "======== ESTATÍSTICAS AVL ============\n");
+        fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
+        fprintf (arqSaida, "Altura: %i\n", alturaAVL(arvAVL));
+        fprintf (arqSaida, "Rotacoes: %i\n", rotacoes);
+        fprintf (arqSaida, "Numero de comparacoes: %i\n",comparacoes);
+
     }
-
-    fprintf (arqSaida, "======== ESTATÍSTICAS ABP ============\n");
-    fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
-    fprintf (arqSaida, "Altura: %i\n",alturaABP(arv));
-    fprintf (arqSaida, "Rotacoes: 0\n");
-    fprintf (arqSaida, "Numero de comparacoes: %i\n\n", comparacoes);
-
-
-    fprintf (arqSaida, "======== ESTATÍSTICAS AVL ============\n");
-    fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
-    fprintf (arqSaida, "Altura: %i\n", alturaAVL(arvAVL));
-    fprintf (arqSaida, "Rotacoes: %i\n", rotacoes);
-    fprintf (arqSaida, "Numero de comparacoes: %i\n",comparacoes);
 
     fclose (arqSaida);
     fclose (arqPaciente);

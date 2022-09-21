@@ -102,8 +102,23 @@ pNodoAVL* insereAVL (pNodoAVL *a, tipoInfo x, int *ok, int *rotacoes) {
    return a;
 }
 
-
-
+pNodoAVL *pesquisaPadraoAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
+    if(a){
+        int comparacao = comparaAlimento(a->nodoInfo, comida);
+        int temp = *comp;
+        temp++;
+        *comp = temp;
+        if (comparacao == 0){
+            return a;
+        }else if (comparacao == -1){
+            return pesquisaPadraoAVL(a->dir, comida, comp);
+        }
+        else if(comparacao == 1){
+            return pesquisaPadraoAVL(a->esq, comida, comp);
+        }
+    }
+    return NULL;
+}
 
 // FUNÇOES *********************************************************************************************************************
 // base retirada dos exemplos no Moodle da disciplina
