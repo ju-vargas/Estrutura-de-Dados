@@ -21,6 +21,22 @@ pNodoA *insere (pNodoA *arv, tipoInfo info){
     return arv;
 }
 
+int alturaABP (pNodoA *a) {
+   int altEsq, altDir;
+   if (a == NULL)
+      return 0;
+
+   else {
+      altEsq = alturaABP (a->esq);
+      altDir = alturaABP (a->dir);
+
+      if (altEsq > altDir)
+         return (1 + altEsq);
+      else
+         return (1 + altDir);
+     }
+}
+
 // funcoes ARQUIVOS *******************************************************************************************************
 pNodoA * preencheABP(FILE *arqCalorias, pNodoA *arv, int *nroNodos) {
     char nomeAlimento[STRING_SIZE];

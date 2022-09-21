@@ -16,8 +16,8 @@ pNodoAVL * rotacaoDuplaEsquerda (pNodoAVL * pt);
 pNodoAVL * Caso1 (pNodoAVL * a , int *ok);
 pNodoAVL * Caso2 (pNodoAVL * a , int *ok);
 
-pNodoAVL * insereAVL (pNodoAVL * a, tipoInfo x, int *ok);
+pNodoAVL * insereAVL (pNodoAVL * a, tipoInfo x, int *ok, int *rotacoes);
 
-pNodoAVL * preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok);
+pNodoAVL * preencheAVL(FILE *arqCalorias, pNodoAVL *arvAVL, int *ok, int *rotacoes);
 
 #endif

@@ -3,16 +3,18 @@
 int main(void){
 
 //VARIAVEIS *********************************************************************************************************
-    int ok; 
+    int ok;
     int compara = 0;
-    int nroNodos = 0; 
+    int nroNodos = 0;
     int comparacoes = 0;
+    int rotacoes = 0;
+
 
     pNodoA *arv;
-    pNodoAVL *arvAVL; 
+    pNodoAVL *arvAVL;
     arv = NULL;
-    arvAVL = NULL; 
- 
+    arvAVL = NULL;
+
 /*
     tipoInfo a1 = {0};
     strcpy(a1.alimento,"arroz");
@@ -36,12 +38,12 @@ int main(void){
 */
 
 //LEITURA DE ARQUIVO CALORIAS ******************************************************************************************
-    
+
     //essas variaveis guardam o nome dos arquivos
     //se receber o nome do terminal, vou usar elas pra conseguir selecionar o arquivo
-    char nomeArqCalorias[50] = "tables/1000Shuffled.csv"; 
-    char nomeArqPaciente[50] = "tables/day1.csv"; 
-    char nomeArqSaida[50] = "tables/Saida_day1.txt"; 
+    char nomeArqCalorias[50] = "../tables/1000Shuffled.csv";
+    char nomeArqPaciente[50] = "../tables/day1.csv";
+    char nomeArqSaida[50] = "../tables/Saida_day1.bin";
 
 
     FILE *arqCalorias = fopen(nomeArqCalorias, "r");
@@ -49,97 +51,94 @@ int main(void){
     //preenchendo arvore ABP
     if (arqCalorias != NULL) {
         arv = preencheABP(arqCalorias, arv, &nroNodos);
+    }else{
+        perror("arqCalorias");
     }
 
-    rewind (arqCalorias); 
+    rewind (arqCalorias);
 
     //preenchendo arvore AVL
     if (arqCalorias != NULL) {
-        arvAVL = preencheAVL(arqCalorias, arvAVL, &ok);
+        arvAVL = preencheAVL(arqCalorias, arvAVL, &ok, &rotacoes);
+    }else{
+        perror("arqCalorias");
     }
 
-    fclose (arqCalorias); 
+    fclose (arqCalorias);
 
 //LEITURA DE ARQUIVO CALORIAS ******************************************************************************************
-//criar função aqui? 
+//criar função aqui?
     //le arquivo do paciente um de cada vez
-    //pesquisa na árvore 
-    //escreve e fecha 
+    //pesquisa na árvore
+    //escreve e fecha
 
-    char alimentoPaciente[STRING_SIZE]; 
-    int gramasAlimento = 0; 
-    int caloriasAlimento= 0; 
-    int caloriasCalculada = 0; 
-    int caloriasTotal = 0; 
+    char alimentoPaciente[STRING_SIZE];
+    int gramasAlimento = 0;
+    int caloriasAlimento= 0;
+    int caloriasCalculada = 0;
+    int caloriasTotal = 0;
 
-    pNodoA * auxCalorias; 
-    auxCalorias = NULL; 
+    pNodoA * auxCalorias;
+    auxCalorias = NULL;
 
     FILE *arqPaciente = fopen(nomeArqPaciente, "r");
-    FILE *arqSaida = fopen(nomeArqSaida, "w"); 
+    FILE *arqSaida = fopen(nomeArqSaida, "wb+");
 
-    if (arqPaciente != NULL && arqSaida != NULL) {
-        fprintf (arqSaida, "Calorias calculadas para %s usando a tabela %s.\n\n", nomeArqPaciente, nomeArqCalorias); 
-       
-        while (fscanf(arqCalorias, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois  
-            //qual pesquisa usar aqui, qual arvore? 
+    if (!arqPaciente){
+        perror("arqPaciente");
+    }else if (!arqSaida){
+        perror("arqSaida");
+    }else {
+        fprintf (arqSaida, "Calorias calculadas para %s usando a tabela %s.\n\n", nomeArqPaciente, nomeArqCalorias);
+
+        while (fscanf(arqCalorias, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {    //codigo baseado no stack overflow p/ como ler de dois em dois
+            //qual pesquisa usar aqui, qual arvore?
             //por enquanto tem para ABP, fazer partes para outras pesquisas!!!
 
             //fazer funcao para calcula calorias
             auxCalorias = pesquisaPadrao(arv,alimentoPaciente,&comparacoes);
             if (auxCalorias != NULL){
-                caloriasAlimento = auxCalorias->nodoInfo.calorias; 
+                caloriasAlimento = auxCalorias->nodoInfo.calorias;
                 caloriasCalculada = (caloriasAlimento*gramasAlimento)/100;
-                caloriasTotal += caloriasCalculada; 
+                caloriasTotal += caloriasCalculada;
                 fprintf (arqSaida, "%ig de %s (%i calorias por 100g) = %i calorias\n", gramasAlimento, alimentoPaciente, caloriasAlimento, caloriasCalculada);
             }
-            else 
-                fprintf (arqSaida, "As calorias de %s não estão contabilizadas\n"); 
+            else
+                fprintf (arqSaida, "As calorias de %s não estão contabilizadas\n");
         }
             fprintf (arqSaida, "\nTotal de %i calorias consumidas no dia\n\n", caloriasTotal);
     }
 
     fprintf (arqSaida, "======== ESTATÍSTICAS ABP ============\n");
     fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
-    fprintf (arqSaida, "Altura: \n"); 
-    fprintf (arqSaida, "Rotacoes: \n");
+    fprintf (arqSaida, "Altura: %i\n",alturaABP(arv));
+    fprintf (arqSaida, "Rotacoes: 0\n");
     fprintf (arqSaida, "Numero de comparacoes: %i\n\n", comparacoes);
 
 
     fprintf (arqSaida, "======== ESTATÍSTICAS AVL ============\n");
     fprintf (arqSaida, "Numero de nodos: %i\n", nroNodos);
-    fprintf (arqSaida, "Altura: \n"); 
-    fprintf (arqSaida, "Rotacoes: \n");
-    fprintf (arqSaida, "Numero de comparacoes: \n");
+    fprintf (arqSaida, "Altura: %i\n", alturaAVL(arvAVL));
+    fprintf (arqSaida, "Rotacoes: %i\n", rotacoes);
+    fprintf (arqSaida, "Numero de comparacoes: %i\n",comparacoes);
 
-    fclose (arqSaida); 
+    fclose (arqSaida);
     fclose (arqPaciente);
 
-//espaço para ABP ******************************************************************************************************* 
-    printf("Em ordem crescente...\n");
-    centralE(arv);
-    printf ("\n"); 
+//espaço para ABP *******************************************************************************************************
+    //printf("Em ordem crescente...\n");
+    //centralE(arv);
+    //printf ("\n");
 
 //espaço para AVL *******************************************************************************************************
     //o desenha desenha em qual ordem?
-    //printf ("Desenho AVL\n"); 
-    //desenha(arvAVL, 1); 
+    //printf ("Desenho AVL\n");
+    //desenha(arvAVL, 1);
     //printf ("\n");
 
     printf ("numero de nodos eh: %i", nroNodos);
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //AREA DE TESTES **************************************************************************************************************
  /*
