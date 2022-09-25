@@ -1,9 +1,8 @@
 #include "bib.h"
 
-int main(char nomeArqCalorias[], char nomeArqPaciente[], char nomeArqSaida[]){
+int main(int nroArgs, char *nomeArq[]){
 
-    printf ("qualuqer coisa!");
-    printf ("nome dos arquivos: %s\n%s\n%s\n", nomeArqCalorias, nomeArqPaciente, nomeArqSaida); 
+    
 
 //VARIAVEIS *********************************************************************************************************
     int ok;
@@ -26,10 +25,13 @@ int main(char nomeArqCalorias[], char nomeArqPaciente[], char nomeArqSaida[]){
     //se receber o nome do terminal, vou usar elas pra conseguir selecionar o arquivo
 
 
-    //char nomeArqCalorias[50] = "1000Shuffled.csv";
-    //char nomeArqPaciente[50] = "day1.csv";
-    //char nomeArqSaida[50] = "Saida_day1.bin";
+    char nomeArqCalorias[50];
+    char nomeArqPaciente[50];
+    char nomeArqSaida[50];
 
+    strcpy(nomeArqCalorias, nomeArq[1]);
+    strcpy(nomeArqPaciente, nomeArq[2]);
+    strcpy(nomeArqSaida, nomeArq[3]);
 
     FILE *arqCalorias = fopen(nomeArqCalorias, "r");
 
