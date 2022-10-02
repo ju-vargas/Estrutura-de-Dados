@@ -117,6 +117,74 @@ pNodoAVL *pesquisaPadraoAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
     return NULL;
 }
 
+pNodoAVL *pesquisaSelecionadaAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
+    char primeiraLetra = comida[0];
+
+    if (toupper(primeiraLetra) <= 'M'){
+        //printf("Escolhendo comecar pela letra A\n");
+        return pesquisaCentralEAVL(a,comida,comp);
+    }else{ //if (toupper(primeiraLetra) == 'Z'){
+        //printf("Escolhendo comecar pela letra Z\n");
+        return pesquisaCentralDAVL(a,comida,comp);
+    }//else{
+        //printf("Escolhendo pesquisa padrao\n");
+    //    return pesquisaPadraoAVL(a,comida,comp);
+    //}
+}
+
+pNodoAVL *guardarAVL;
+int acheiAVL = 0;
+pNodoAVL *pesquisaCentralEAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
+    acheiAVL = 0;
+    if(a){
+        pesquisaCentralEAVL(a->esq,comida,comp);
+
+        if (!acheiAVL){
+            //printf("%p\n",a);
+            //printf("comidaInfo: %s\n",a->nodoInfo.alimento);
+            //printf("comida: %s\n",comida);
+            int comparacao = comparaAlimento(a->nodoInfo, comida);
+            //printf("comparacao: %d\n",comparacao);
+            (*comp)++;
+            if(comparacao == 0){
+                //printf("achei, amigos! %p\n\n",a);
+                guardarAVL = a;
+                acheiAVL = 1;
+            }
+            //printf("\n");
+        }
+
+        if (!acheiAVL){
+            pesquisaCentralEAVL(a->dir,comida,comp);
+        }
+
+        return guardarAVL;
+    }
+    return NULL;
+}
+
+pNodoAVL *pesquisaCentralDAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
+    acheiAVL = 0;
+    if(a){
+        pesquisaCentralDAVL(a->dir,comida,comp);
+
+        if (!acheiAVL){
+            int comparacao = comparaAlimento(a->nodoInfo, comida);
+            (*comp)++;
+            if(comparacao == 0){
+                guardarAVL = a;
+                acheiAVL = 1;
+            }
+        }
+
+        if (!acheiAVL){
+            pesquisaCentralDAVL(a->esq,comida,comp);
+        }
+
+        return guardarAVL;
+    }
+    return NULL;
+}
 // FUNÇOES *********************************************************************************************************************
 // base retirada dos exemplos no Moodle da disciplina
 

@@ -5,6 +5,9 @@
 
 pNodoAVL * insereArvoreAVL(pNodoAVL * a, tipoInfo info);
 pNodoAVL * pesquisaPadraoAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp);
+pNodoAVL *pesquisaSelecionadaAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp);
+pNodoAVL *pesquisaCentralEAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp);
+pNodoAVL *pesquisaCentralDAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp);
 int alturaAVL (pNodoAVL * a);
 int calculaFB(pNodoAVL * a);
 void desenha(pNodoAVL * a , int nivel);

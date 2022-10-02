@@ -76,16 +76,16 @@ pNodoA *pesquisaPadrao(pNodoA *a, char comida[STRING_SIZE], int *comp){
 pNodoA *pesquisaSelecionada(pNodoA *a, char comida[STRING_SIZE], int *comp){
     char primeiraLetra = comida[0];
 
-    if (toupper(primeiraLetra) == 'A'){
+    if (toupper(primeiraLetra) <= 'M'){
         //printf("Escolhendo comecar pela letra A\n");
         return pesquisaCentralE(a,comida,comp);
-    }else if (toupper(primeiraLetra) == 'Z'){
+    }else{ //if (toupper(primeiraLetra) == 'Z'){
         //printf("Escolhendo comecar pela letra Z\n");
         return pesquisaCentralD(a,comida,comp);
-    }else{
+    }//else{
         //printf("Escolhendo pesquisa padrao\n");
-        return pesquisaPadrao(a,comida,comp);
-    }
+    //    return pesquisaPadrao(a,comida,comp);
+    //}
 }
 
 pNodoA *guardar;
@@ -142,6 +142,8 @@ pNodoA *pesquisaCentralD(pNodoA *a, char comida[STRING_SIZE], int *comp){
     return NULL;
 }
 
+/*
+excluir depois
 pNodoA *pesquisaPreFixadoD(pNodoA *a, char comida[STRING_SIZE], int *comp){
     achei = 0;
     if(a){
@@ -228,7 +230,6 @@ pNodoA *pesquisaPosFixadoD(pNodoA *a, char comida[STRING_SIZE], int *comp){
     return NULL;
 }
 
-
 void preFixadoE(pNodoA *a){
     if (a){
         printf("Calorias: %d | Alimento: %s\n",a->nodoInfo.calorias,a->nodoInfo.alimento);
@@ -236,6 +237,7 @@ void preFixadoE(pNodoA *a){
         preFixadoE(a->dir);
     }
 }
+*/
 
 void centralE(pNodoA *a){
     if (a){

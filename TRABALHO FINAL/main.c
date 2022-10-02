@@ -1,7 +1,11 @@
 #include "bib.h"
+#include <stdio.h>
+#include <time.h>       // for clock_t, clock(), CLOCKS_PER_SEC
+#include <unistd.h>     // for sleep()
 
 int main(int nroArgs, char *nomeArq[]){
 //VARIAVEIS *********************************************************************************************************
+    printf("opa3\n");
     int ok;
     int nroNodos = 0;
     int comparacoes = 0;
@@ -25,12 +29,12 @@ int main(int nroArgs, char *nomeArq[]){
     FILE *arqCalorias = fopen(nomeArqCalorias, "r");
 
     //preenchendo arvore ABP
-    if (arqCalorias != NULL) {
-        arv = preencheABP(arqCalorias, arv, &nroNodos);
-    }else{
-        perror("arqCalorias");
-    }
-
+    //if (arqCalorias != NULL) {
+    //    arv = preencheABP(arqCalorias, arv, &nroNodos);
+   // }else{
+    //    perror("arqCalorias");
+    //}
+    printf("opa3\n");
     rewind (arqCalorias);
 
     //preenchendo arvore AVL
@@ -51,7 +55,7 @@ int main(int nroArgs, char *nomeArq[]){
     int caloriasAlimento = 0;
     int caloriasCalculada = 0;
     int caloriasTotal = 0;
-
+    printf("opa1\n");
     pNodoA * auxCalorias;
     auxCalorias = NULL;
 
@@ -60,18 +64,20 @@ int main(int nroArgs, char *nomeArq[]){
 
     FILE *arqPaciente = fopen(nomeArqPaciente, "r");
     FILE *arqSaida = fopen(nomeArqSaida, "wb+");
-
+    printf("opa2\n");
     if (!arqPaciente){
         perror("arqPaciente");
     }else if (!arqSaida){
         perror("arqSaida");
     }else {
+        printf("opa3\n");
         fprintf (arqSaida, "Calorias calculadas para %s usando a tabela %s.\n\n", nomeArqPaciente, nomeArqCalorias);
 
         //espaço para ABP *******************************************************************************************************
         //codigo baseado no stack overflow p/ como ler de dois em dois
+        
         while (fscanf(arqPaciente, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {
-            auxCalorias = pesquisaPadrao(arv,alimentoPaciente,&comparacoes);
+            auxCalorias = pesquisaSelecionada(arv,alimentoPaciente,&comparacoes);
 
             if (auxCalorias != NULL){
                 caloriasAlimento = auxCalorias->nodoInfo.calorias;
@@ -92,14 +98,14 @@ int main(int nroArgs, char *nomeArq[]){
 
         rewind(arqPaciente);
         comparacoes = 0;
-
+        
         //espaço para AVL *******************************************************************************************************
         //codigo baseado no stack overflow p/ como ler de dois em dois
         while (fscanf(arqPaciente, "%[^;];%d\n", alimentoPaciente, &gramasAlimento) == 2) {
             auxCaloriasAVL = pesquisaPadraoAVL(arvAVL,alimentoPaciente,&comparacoes);
 
             if (auxCaloriasAVL != NULL)
-                printf ("%ig de %s (%i calorias por 100g) = %i calorias\n", gramasAlimento, alimentoPaciente, caloriasAlimento, caloriasCalculada);
+                printf ("%ig de %s (%i calorias por 100g) = %i calorias\n", gramasAlimento, alimentoPaciente, auxCaloriasAVL->nodoInfo.calorias, caloriasCalculada);
             else
                 printf ("As calorias de %s nao estao contabilizadas\n",alimentoPaciente);
         }
@@ -116,5 +122,6 @@ int main(int nroArgs, char *nomeArq[]){
     fclose (arqPaciente);
 
     printf ("Numero de nodos eh: %i", nroNodos);
+
     return 0;
 }
