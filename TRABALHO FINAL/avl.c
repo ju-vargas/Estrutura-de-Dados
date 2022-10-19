@@ -119,7 +119,7 @@ pNodoAVL *pesquisaPadraoAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
 
 pNodoAVL *pesquisaSelecionadaAVL(pNodoAVL *a, char comida[STRING_SIZE], int *comp){
     char primeiraLetra = comida[0];
-
+    printf("dskjflaskd\n");
     if (toupper(primeiraLetra) <= 'M'){
         //printf("Escolhendo comecar pela letra A\n");
         return pesquisaCentralEAVL(a,comida,comp);
